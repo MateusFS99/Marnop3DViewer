@@ -1,0 +1,9 @@
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe.config
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.pdb
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csprojAssemblyReference.cache
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.TelaPrincipal.resources
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.Properties.Resources.resources
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
+C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb
