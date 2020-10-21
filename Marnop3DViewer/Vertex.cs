@@ -8,45 +8,45 @@ namespace Marnop3DViewer
 {
     class Vertex
     {
-        private int x, y, z;
+        private double x, y, z;
 
         public Vertex()
         {
         }
 
-        public Vertex(int x, int y, int z)
+        public Vertex(double x, double y, double z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
         }
 
-        public int getX()
+        public double getX()
         {
             return x;
         }
 
-        public int getY()
+        public double getY()
         {
             return y;
         }
 
-        public int getZ()
+        public double getZ()
         {
             return z;
         }
 
-        public void setX(int x)
+        public void setX(double x)
         {
             this.x = x;
         }
 
-        public void setY(int y)
+        public void setY(double y)
         {
             this.y = y;
         }
 
-        public void setZ(int z)
+        public void setZ(double z)
         {
             this.z = z;
         }

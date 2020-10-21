@@ -8,28 +8,33 @@ namespace Marnop3DViewer
 {
     class Face
     {
-        private int[] vertices;
+        private List<int> vertex;
         private double vnormal;
 
         public Face()
         {
-            vertices = new int[3];
+            vertex = new List<int>();
         }
 
-        public Face(int[] vertices, double vnormal)
+        public Face(List<int> vertices, double vnormal)
         {
-            this.vertices = vertices;
+            this.vertex = vertices;
             this.vnormal = vnormal;
         }
 
         public void setVertice(int index, int v)
         {
-            vertices[index] = v;
+            vertex[index] = v;
         }
 
-        public int [] getVertices()
+        public void addVertex(int index)
         {
-            return vertices;
+            vertex.Add(index);
+        }
+
+        public List<int> getVertices()
+        {
+            return vertex;
         }
 
         public void setNormal(double n)

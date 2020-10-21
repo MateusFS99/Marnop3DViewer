@@ -35,6 +35,21 @@ namespace Marnop3DViewer
             return ma;
         }
 
+        public void addActuals(Vertex v)
+        {
+            actuals.Add(v);
+        }
+
+        public void addOriginals(Vertex v)
+        {
+            originals.Add(v);
+        }
+
+        public void addFaces(Face f)
+        {
+            faces.Add(f);
+        }
+
         public List<Vertex> GetActuals()
         {
             return actuals;

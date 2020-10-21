@@ -7,3 +7,13 @@ C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.P
 C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
 C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
 C:\Users\Mateus\Desktop\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe.config
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.pdb
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csprojAssemblyReference.cache
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.TelaPrincipal.resources
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.Properties.Resources.resources
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.CoreCompileInputs.cache
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
+D:\pasta coisas\Estudo\CG\3Dviewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb
