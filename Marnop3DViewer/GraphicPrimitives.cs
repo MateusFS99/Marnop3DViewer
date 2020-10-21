@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Marnop3DViewer
 {
-	class PrimitivasGraficas
+	class GraphicPrimitives
 	{
 	}
 }

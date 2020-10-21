@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Marnop3DViewer
 		private int mousex, mousey;
 		private bool dragging;
 		private Color cor;
+		private Object3D actobj;
 
 		public TelaPrincipal()
 		{
@@ -79,6 +81,7 @@ namespace Marnop3DViewer
 			openFileDialog.Filter = "Arquivos (*.obj)|*.obj";
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
+				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
 			}
