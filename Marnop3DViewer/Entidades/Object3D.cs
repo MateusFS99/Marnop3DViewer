@@ -50,17 +50,17 @@ namespace Marnop3DViewer
             faces.Add(f);
         }
 
-        public List<Vertex> GetActuals()
+        public List<Vertex> getActuals()
         {
             return actuals;
         }
 
-        public List<Vertex> GetOriginals()
+        public List<Vertex> getOriginals()
         {
             return originals;
         }
 
-        public List<Face> GetFaces()
+        public List<Face> getFaces()
         {
             return faces;
         }

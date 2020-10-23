@@ -78,6 +78,7 @@ namespace Marnop3DViewer
 
 		private void btAbrir_Click(object sender, EventArgs e)
 		{
+			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
 			openFileDialog.FileName = "";
 			openFileDialog.Filter = "Arquivos (*.obj)|*.obj";
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -85,6 +86,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
+				pbPrincipal.Image = Utils.drawObject(actobj,b);
 			}
 		}
 

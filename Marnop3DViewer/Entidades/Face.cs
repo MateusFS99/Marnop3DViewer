@@ -22,17 +22,12 @@ namespace Marnop3DViewer
             this.vnormal = vnormal;
         }
 
-        public void setVertice(int index, int v)
-        {
-            vertex[index] = v;
-        }
-
         public void addVertex(int index)
         {
             vertex.Add(index);
         }
 
-        public List<int> getVertices()
+        public List<int> getVertexs()
         {
             return vertex;
         }
