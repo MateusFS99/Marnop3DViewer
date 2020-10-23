@@ -21,6 +21,7 @@ namespace Marnop3DViewer
 		public TelaPrincipal()
 		{
 			InitializeComponent();
+			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
 			exibeTab("info");
 		}
 
@@ -158,6 +159,52 @@ namespace Marnop3DViewer
 		private void btConfig_Click(object sender, EventArgs e)
 		{
 			exibeTab("config");
+		}
+
+		private void TelaPrincipal_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if(Convert.ToString(e.KeyChar).Equals(Keys.Shift))
+			{
+				//shift pressionado
+			}
+			if (Convert.ToString(e.KeyChar).Equals(Keys.Control))
+			{
+				//ctrl pressionado
+			}
+		}
+
+		private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				//rotação em x e y
+			}
+			else if (e.Button == MouseButtons.Right)
+			{
+				//translação em x e y
+			}
+		}
+
+		private void pbPrincipal_MouseUp(object sender, MouseEventArgs e)
+		{
+			
+		}
+
+		private void pbPrincipal_MouseDown(object sender, MouseEventArgs e)
+		{
+
+		}
+
+		private void pbPrincipal_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if(e.Delta < 0)
+			{
+				//scroll up
+			}
+			else
+			{
+				//scroll down
+			}
 		}
 	}
 }

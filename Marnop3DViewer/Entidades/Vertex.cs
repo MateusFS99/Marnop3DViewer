@@ -10,9 +10,7 @@ namespace Marnop3DViewer
     {
         private double x, y, z;
 
-        public Vertex()
-        {
-        }
+        public Vertex(){}
 
         public Vertex(double x, double y, double z)
         {
@@ -50,6 +48,5 @@ namespace Marnop3DViewer
         {
             this.z = z;
         }
-
     }
 }

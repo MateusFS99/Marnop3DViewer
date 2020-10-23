@@ -59,6 +59,9 @@
 			this.pbPrincipal.Size = new System.Drawing.Size(660, 500);
 			this.pbPrincipal.TabIndex = 1;
 			this.pbPrincipal.TabStop = false;
+			this.pbPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseDown);
+			this.pbPrincipal.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseMove);
+			this.pbPrincipal.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseUp);
 			// 
 			// openFileDialog
 			// 
@@ -272,6 +275,7 @@
 			this.Name = "TelaPrincipal";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Marnop3DViewer";
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TelaPrincipal_KeyPress);
 			((System.ComponentModel.ISupportInitialize)(this.pbPrincipal)).EndInit();
 			this.gbFormato.ResumeLayout(false);
 			this.gbFormato.PerformLayout();

@@ -14,8 +14,8 @@ namespace Marnop3DViewer
             Object3D obj = new Object3D();
             String[] s,s1;
             Face f;
-
             String line = sr.ReadLine();
+
             while(line.Length != 0)
             {
                 s = line.Split(' ');
