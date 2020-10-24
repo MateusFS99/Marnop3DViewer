@@ -51,6 +51,22 @@ namespace Marnop3DViewer
 
             multiplyMatrix(aux2);
         }
+        public void rotationX(int grau)
+        {
+            double[,] aux2 = new double[,] { { 1, 0, 0 ,0},
+                { 0, Math.Cos(grau*Math.PI/180), -Math.Sin(grau * Math.PI / 180), 0},
+                { 0, Math.Sin(grau * Math.PI / 180), Math.Cos(grau * Math.PI / 180) , 0}, { 0, 0, 0 , 1}};
+
+            multiplyMatrix(aux2);
+        }
+
+        public void rotationY(int grau)
+        {
+            double[,] aux2 = new double[,] { { Math.Cos(grau*Math.PI/180), 0, Math.Sin(grau * Math.PI / 180), 0},
+                { 0, 1, 0 ,0 }, { -Math.Sin(grau * Math.PI / 180), 0, Math.Cos(grau * Math.PI / 180) , 0}, { 0, 0, 0 , 1}};
+
+            multiplyMatrix(aux2);
+        }
 
         public void setNewActuals()
         {
