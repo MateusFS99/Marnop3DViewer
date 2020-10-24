@@ -185,7 +185,7 @@ namespace Marnop3DViewer
 			if (e.Button == MouseButtons.Left)
 			{
 				//x, y rotation
-				if (Math.Abs(dx) > 5 || Math.Abs(dy) > 5)
+				if (Math.Abs(dx) > 7 || Math.Abs(dy) > 7)
                 {
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.rotationX(dy);
@@ -201,7 +201,7 @@ namespace Marnop3DViewer
 			else if (e.Button == MouseButtons.Right && actobj != null)
 			{
 				//x, y translation
-				if(Math.Abs(dx) > 30 || Math.Abs(dy) > 30)
+				if(Math.Abs(dx) > 15 || Math.Abs(dy) > 15)
                 {
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
