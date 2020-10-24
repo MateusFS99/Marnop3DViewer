@@ -17,6 +17,7 @@ namespace Marnop3DViewer
 		private bool dragging;
 		private Color cor;
 		private Object3D actobj;
+		private int x1, y1, x2, y2;
 
 		public TelaPrincipal()
 		{
@@ -177,13 +178,27 @@ namespace Marnop3DViewer
 
 		private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
 		{
+			x2 = e.X;
+			y2 = e.Y;
+			int dx = x2 - x1;
+			int dy = y2 - y1;
 			if (e.Button == MouseButtons.Left)
 			{
 				//rotação em x e y
 			}
-			else if (e.Button == MouseButtons.Right)
+			else if (e.Button == MouseButtons.Right && actobj != null)
 			{
-				//translação em x e y
+				//x and y translation
+				if(Math.Abs(dx) > 30 || Math.Abs(dy) > 30)
+                {
+					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
+					actobj.translation(dx, dy, 0);
+					actobj.setNewActuals();
+					pbPrincipal.Image = Utils.drawObject(actobj, b);
+
+					x1 = x2;
+					y1 = y2;
+				}
 			}
 		}
 
@@ -194,7 +209,8 @@ namespace Marnop3DViewer
 
 		private void pbPrincipal_MouseDown(object sender, MouseEventArgs e)
 		{
-
+			x1 = e.X;
+			y1 = e.Y;
 		}
 
 		private void pbPrincipal_MouseWheel(object sender, MouseEventArgs e)
@@ -205,12 +221,7 @@ namespace Marnop3DViewer
 				actobj.scale(0.8, 0.8, 0.8);
 			//scroll up
 			else
-			{
 				actobj.scale(1.2, 1.2, 1.2);
-				
-				
-				
-			}
 			actobj.setNewActuals();
 			pbPrincipal.Image = Utils.drawObject(actobj, b);
 		}

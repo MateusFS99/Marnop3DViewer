@@ -73,10 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entidades\Face.cs" />
-    <Compile Include="Funções\Lighting.cs" />
-    <Compile Include="Entidades\Object3D.cs" />
-    <Compile Include="Funções\GraphicPrimitives.cs" />
+    <Compile Include="Entities\Face.cs" />
+    <Compile Include="Functions\Lighting.cs" />
+    <Compile Include="Entities\Object3D.cs" />
+    <Compile Include="Functions\GraphicPrimitives.cs" />
     <Compile Include="TelaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,8 +85,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Funções\Utils.cs" />
-    <Compile Include="Entidades\Vertex.cs" />
+    <Compile Include="Functions\Utils.cs" />
+    <Compile Include="Entities\Vertex.cs" />
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
     </EmbeddedResource>

@@ -83,7 +83,6 @@ namespace Marnop3DViewer
 				}
 				else
 					t = false;
-				
 			}
 		}
 	}
