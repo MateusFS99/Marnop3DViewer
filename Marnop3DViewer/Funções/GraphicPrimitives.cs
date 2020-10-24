@@ -10,26 +10,29 @@ namespace Marnop3DViewer
 {
 	class GraphicPrimitives
 	{
-
 		public unsafe static void BresenhamLow(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
-			
+			int rowsize = (b.Width * 3);
 			byte* p;
 			int incE, incNE, d;
 			incE = (int)(2 * dy);
 			incNE = (int)(2 * dy - 2 * dx);
 			d = (int)(2 * dy - dx);
 
-			int rowsize = (b.Width * 3);
-			try
+			byte* lim = (byte*)b.Scan0.ToPointer();
+			lim += rowsize * (b.Height - 1);
+			bool t = true;
+			int co;
+
+			for (int x = 0; x < dx && t; x++)
 			{
-				for (int x = 0; x < dx; x++)
+				co = 3 * (x1 + x * fx);
+				if (co < rowsize && co > 0)
 				{
 					p = (byte*)b.Scan0.ToPointer();
-					p += rowsize * y1 + 3*(x1 + x * fx);
-					*p = 255;
-					*p = 255;
-					*p = 255;
+					p += rowsize * y1 + co;
+					if (p > (byte*)b.Scan0.ToPointer() && p < lim)
+						*p = (byte)255;
 
 					if (d > 0)
 					{
@@ -39,10 +42,9 @@ namespace Marnop3DViewer
 					else
 						d += incE;
 				}
+				else
+					t = false;
 			}
-			catch (Exception)
-			{ }
-			
 		}
 
 		public unsafe static void BresenhamHigh(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
@@ -55,23 +57,33 @@ namespace Marnop3DViewer
 			d = (int)(2 * dx - dy);
 
 			int rowsize = (b.Width * 3);
+			byte* lim = (byte*)b.Scan0.ToPointer();
+			lim += rowsize * (b.Height - 1);
+			bool t = true;
+			int co;
 
-			for (int y = 0; y < dy; y++)
+			for (int y = 0; y < dy && t; y++)
 			{
+				co = 3 * x1;
 				p = (byte*)b.Scan0.ToPointer();
-				p += rowsize * (y1 + y * fy) + ((3 * x1)-1);
-				int i = *p;
-				*(p) = (byte)255;
-				*(p) = (byte)255;
-				*(p) = (byte)255;
-
-				if (d > 0)
+				if (co < rowsize && co > 0)
 				{
-					x1 = x1 + fx;
-					d += incNE;
+					p += rowsize * (y1 + y * fy) + co;
+
+					if (p > (byte*)b.Scan0.ToPointer() && p < lim)
+						*p = (byte)255;
+
+					if (d > 0)
+					{
+						x1 = x1 + fx;
+						d += incNE;
+					}
+					else
+						d += incE;
 				}
 				else
-					d += incE;
+					t = false;
+				
 			}
 		}
 	}

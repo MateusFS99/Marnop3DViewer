@@ -199,14 +199,20 @@ namespace Marnop3DViewer
 
 		private void pbPrincipal_MouseWheel(object sender, MouseEventArgs e)
 		{
-			if(e.Delta < 0)
-			{
-				//scroll up
-			}
+			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
+			//scroll down
+			if (e.Delta < 0)
+				actobj.scale(0.8, 0.8, 0.8);
+			//scroll up
 			else
 			{
-				//scroll down
+				actobj.scale(1.2, 1.2, 1.2);
+				
+				
+				
 			}
+			actobj.setNewActuals();
+			pbPrincipal.Image = Utils.drawObject(actobj, b);
 		}
 	}
 }

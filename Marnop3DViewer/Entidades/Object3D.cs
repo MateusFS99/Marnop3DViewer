@@ -30,6 +30,59 @@ namespace Marnop3DViewer
             this.originals = originals;
         }
 
+        public void scale(double x, double y, double z)
+        {
+            double[,] aux = new double[4, 4];
+            double[,] aux2 = new double[,] { { x, 0, 0 }, { 0, y, 0 }, { 0, 0, 1 } };
+            for (int i = 0; i < 3; i++)
+            {
+                aux[i, 0] = aux2[i, 0] * ma[0, 0] + aux2[i, 1] * ma[1, 0] + aux2[i, 2] * ma[2, 0];
+                aux[i, 1] = aux2[i, 0] * ma[0, 1] + aux2[i, 1] * ma[1, 1] + aux2[i, 2] * ma[2, 1];
+                aux[i, 2] = aux2[i, 0] * ma[0, 2] + aux2[i, 1] * ma[1, 2] + aux2[i, 2] * ma[2, 2];
+                aux[i, 2] = aux2[i, 0] * ma[0, 2] + aux2[i, 1] * ma[1, 2] + aux2[i, 2] * ma[2, 2];
+            }
+            ma = aux;
+        }
+
+        public void translation(int x, int y)
+        {
+            double[,] aux = new double[3, 3];
+            double[,] aux2 = new double[,] { { 1, 0, x }, { 0, 1, y }, { 0, 0, 1 } };
+            for (int i = 0; i < 3; i++)
+            {
+                aux[i, 0] = aux2[i, 0] * ma[0, 0] + aux2[i, 1] * ma[1, 0] + aux2[i, 2] * ma[2, 0];
+                aux[i, 1] = aux2[i, 0] * ma[0, 1] + aux2[i, 1] * ma[1, 1] + aux2[i, 2] * ma[2, 1];
+                aux[i, 2] = aux2[i, 0] * ma[0, 2] + aux2[i, 1] * ma[1, 2] + aux2[i, 2] * ma[2, 2];
+            }
+            ma = aux;
+        }
+
+        public void rotation(int grau)
+        {
+            double[,] aux = new double[3, 3];
+            double[,] aux2 = new double[,] { { Math.Cos(grau*Math.PI/180), -Math.Sin(grau * Math.PI / 180), 0 },
+                { Math.Sin(grau * Math.PI / 180), Math.Cos(grau * Math.PI / 180), 0 }, { 0, 0, 1 } };
+            for (int i = 0; i < 3; i++)
+            {
+                aux[i, 0] = aux2[i, 0] * ma[0, 0] + aux2[i, 1] * ma[1, 0] + aux2[i, 2] * ma[2, 0];
+                aux[i, 1] = aux2[i, 0] * ma[0, 1] + aux2[i, 1] * ma[1, 1] + aux2[i, 2] * ma[2, 1];
+                aux[i, 2] = aux2[i, 0] * ma[0, 2] + aux2[i, 1] * ma[1, 2] + aux2[i, 2] * ma[2, 2];
+            }
+            ma = aux;
+        }
+
+        public void setNewActuals()
+        {
+            actuals = null;
+            actuals = new List<Vertex>();
+            foreach (Vertex p in originals)
+            {
+                actuals.Add(new Vertex(Convert.ToDouble(ma[0, 0] * p.getX() + ma[0, 1] * p.getY() + ma[0, 2] * p.getZ() + ma[0,3]),
+                    Convert.ToDouble(ma[1, 0] * p.getX() + ma[1, 1] * p.getY() + ma[1, 2] * p.getZ() + ma[1, 3]), 
+                    Convert.ToDouble(ma[2, 0] * p.getX() + ma[2, 1] * p.getY() + ma[2, 2] * p.getZ() + ma[2, 3])));
+            }
+        }
+
         public double[,] getMA()
         {
             return ma;

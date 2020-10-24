@@ -58,15 +58,15 @@ namespace Marnop3DViewer
                 for (int i = 0;  i< f.getVertexs().Count - 1; i++)
                 {
 					x1 = (int)(330+obj.getActuals()[f.getVertexs()[i]].getX());
-					y1 = (int)(330+obj.getActuals()[f.getVertexs()[i]].getY());
+					y1 = (int)(250+obj.getActuals()[f.getVertexs()[i]].getY());
 					x2 = (int)(330+obj.getActuals()[f.getVertexs()[i+1]].getX());
-					y2 = (int)(330+obj.getActuals()[f.getVertexs()[i+1]].getY());
+					y2 = (int)(250+obj.getActuals()[f.getVertexs()[i+1]].getY());
 					bresenham(bdma, x1, y1, x2, y2);
                 }
 				x1 = (int)(330+obj.getActuals()[f.getVertexs()[f.getVertexs().Count-1]].getX());
-				y1 = (int)(330+obj.getActuals()[f.getVertexs()[f.getVertexs().Count-1]].getY());
+				y1 = (int)(250+obj.getActuals()[f.getVertexs()[f.getVertexs().Count-1]].getY());
 				x2 = (int)(330+obj.getActuals()[f.getVertexs()[0]].getX());
-				y2 = (int)(330+obj.getActuals()[f.getVertexs()[0]].getY());
+				y2 = (int)(250+obj.getActuals()[f.getVertexs()[0]].getY());
 				bresenham(bdma, x1, y1, x2, y2);
 			}
 
@@ -74,6 +74,16 @@ namespace Marnop3DViewer
 
 			return b;
 		}
+
+		private static int limiter(int limmin, int limmax, int number)
+        {
+			if (number > limmax)
+				number = limmax;
+			else if (number < limmin)
+				number = limmin;
+
+			return number;
+        }
 
 		private static void bresenham(BitmapData b, int x1, int y1, int x2, int y2)
 		{
