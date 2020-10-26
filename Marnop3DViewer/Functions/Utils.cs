@@ -21,7 +21,7 @@ namespace Marnop3DViewer
             while(line != null)
             {
                 s = line.Split(' ');
-                //add
+                //add vertex
                 if (s[0].Equals("v"))
                 {
 					obj.addOriginals(new Vertex(Convert.ToDouble(s[1].Replace(".", ",")), Convert.ToDouble(s[2].Replace(".", ",")), Convert.ToDouble(s[3].Replace(".", ","))));
@@ -31,10 +31,13 @@ namespace Marnop3DViewer
                 else if (s[0].Equals("f"))
                 {
                     f = new Face();
-                    for (int i = 1; i < s.Length; i++)
+					if (s[s.Length - 1] == "")
+						Array.Resize(ref s, 3);
+					for (int i = 1; i < s.Length; i++)
                     {
                         s1 = s[i].Split('/');
-                        f.addVertex(Convert.ToInt32(s1[0])-1);
+						
+						f.addVertex(Convert.ToInt32(s1[0]) - 1);
                     }
                     obj.addFaces(f);
                 }

@@ -164,19 +164,31 @@ namespace Marnop3DViewer
 			exibeTab("config");
 		}
 
-		private void TelaPrincipal_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if(Convert.ToString(e.KeyChar).Equals(Keys.Shift))
+        private void TelaPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+			if (e.KeyCode == Keys.Control)
 			{
 				//shift pressionado
 			}
-			if (Convert.ToString(e.KeyChar).Equals(Keys.Control))
+			if (e.KeyCode == Keys.Shift)
 			{
 				//ctrl pressionado
 			}
 		}
 
-		private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
+        private void TelaPrincipal_KeyUp(object sender, KeyEventArgs e)
+        {
+			if (e.KeyCode == Keys.Control)
+			{
+				//shift pressionado
+			}
+			if (e.KeyCode == Keys.Shift)
+			{
+				//ctrl pressionado
+			}
+		}
+
+        private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
 		{
 			x2 = e.X;
 			y2 = e.Y;
@@ -230,10 +242,23 @@ namespace Marnop3DViewer
 			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
 			//scroll down
 			if (e.Delta < 0)
+            {
+				//if buttom pressed
+
+				//else 
+
 				actobj.scale(0.8, 0.8, 0.8);
+			}
+				
 			//scroll up
 			else
+            {
+				//if buttom pressed
+
+				//else 
 				actobj.scale(1.2, 1.2, 1.2);
+			}
+				
 			actobj.setNewActuals();
 			pbPrincipal.Image = Utils.drawObject(actobj, b);
 		}

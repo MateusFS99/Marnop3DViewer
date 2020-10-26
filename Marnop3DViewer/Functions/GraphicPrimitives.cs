@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Marnop3DViewer
 {
-	class GraphicPrimitives
+	unsafe class GraphicPrimitives
 	{
-		public unsafe static void BresenhamLow(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
+		public static void BresenhamLow(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
 			int rowsize = (b.Width * 3);
 			byte* p;
@@ -47,7 +47,7 @@ namespace Marnop3DViewer
 			}
 		}
 
-		public unsafe static void BresenhamHigh(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
+		public static void BresenhamHigh(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
 
 			byte* p;
