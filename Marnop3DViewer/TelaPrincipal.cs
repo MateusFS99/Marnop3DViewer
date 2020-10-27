@@ -23,6 +23,7 @@ namespace Marnop3DViewer
 		{
 			InitializeComponent();
 			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
+			pbColor.BackColor = Color.Blue;
 			exibeTab("info");
 		}
 
@@ -41,6 +42,23 @@ namespace Marnop3DViewer
 			g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
 			g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + gbFormato.Padding.Left, rect.Y));
 			g.DrawLine(borderPen, new Point(rect.X + gbFormato.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+		}
+
+		private void drawPictureBox(Graphics g)
+		{
+			Brush borderBrush = new SolidBrush(Color.FromArgb(0, 151, 230));
+			Pen borderPen = new Pen(borderBrush);
+			SizeF strSize = g.MeasureString(this.pbPrincipal.Text, pbPrincipal.Font);
+			Rectangle rect = new Rectangle(pbPrincipal.ClientRectangle.X,
+										   pbPrincipal.ClientRectangle.Y + (int)(strSize.Height / 2),
+										   pbPrincipal.ClientRectangle.Width - 1,
+										   pbPrincipal.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
+
+			g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
+			g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+			g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
+			g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + pbPrincipal.Padding.Left, rect.Y));
+			g.DrawLine(borderPen, new Point(rect.X + pbPrincipal.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
 		}
 
 		private void drawPane(Graphics g)
@@ -88,12 +106,14 @@ namespace Marnop3DViewer
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
 				pbPrincipal.Image = Utils.drawObject(actobj,b);
+				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
 
 		private void btLimpar_Click(object sender, EventArgs e)
 		{
 			pbPrincipal.Image = null;
+			this.Text = "Marnop3DViewer";
 		}
 
 		private void btColor_Click(object sender, EventArgs e)
@@ -107,6 +127,11 @@ namespace Marnop3DViewer
 		private void gbFormato_Paint(object sender, PaintEventArgs e)
 		{
 			drawGroupBox(e.Graphics);
+		}
+
+		private void pbPrincipal_Paint(object sender, PaintEventArgs e)
+		{
+			drawPictureBox(e.Graphics);
 		}
 
 		private void pnFuncoes_Paint(object sender, PaintEventArgs e)
@@ -154,6 +179,16 @@ namespace Marnop3DViewer
 			}
 		}
 
+		private void rbSolido_CheckedChanged(object sender, EventArgs e)
+		{
+			Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
+
+			if (rbSolido.Checked)
+				Utils.scanLine(actobj, cor, b);
+			else
+				pbPrincipal.Image = Utils.drawObject(actobj, b);
+		}
+
 		private void btInfo_Click(object sender, EventArgs e)
 		{
 			exibeTab("info");
@@ -188,7 +223,7 @@ namespace Marnop3DViewer
 			}
 		}
 
-        private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
+		private void pbPrincipal_MouseMove(object sender, MouseEventArgs e)
 		{
 			x2 = e.X;
 			y2 = e.Y;
@@ -204,7 +239,6 @@ namespace Marnop3DViewer
 					actobj.rotationY(-dx);
 					actobj.setNewActuals();
 					pbPrincipal.Image = Utils.drawObject(actobj, b);
-
 					x1 = x2;
 					y1 = y2;
 				}

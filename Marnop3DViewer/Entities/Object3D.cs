@@ -51,6 +51,7 @@ namespace Marnop3DViewer
 
             multiplyMatrix(aux2);
         }
+
         public void rotationX(int grau)
         {
             double[,] aux2 = new double[,] { { 1, 0, 0 ,0},

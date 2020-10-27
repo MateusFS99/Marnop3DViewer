@@ -12,18 +12,12 @@ namespace Marnop3DViewer
 	{
 		public static void BresenhamLow(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
-			int rowsize = (b.Width * 3);
-			byte* p;
-			int incE, incNE, d;
-			incE = (int)(2 * dy);
-			incNE = (int)(2 * dy - 2 * dx);
-			d = (int)(2 * dy - dx);
-
-			byte* lim = (byte*)b.Scan0.ToPointer();
-			lim += rowsize * (b.Height - 1);
+			int rowsize = (b.Width * 3), incE = (int)(2 * dy), incNE = (int)(2 * dy - 2 * dx);
+			int	d = (int)(2 * dy - dx), co;
 			bool t = true;
-			int co;
+			byte* p, lim = (byte*)b.Scan0.ToPointer();
 
+			lim += rowsize * (b.Height - 1);
 			for (int x = 0; x < dx && t; x++)
 			{
 				co = 3 * (x1 + x * fx);
@@ -49,19 +43,12 @@ namespace Marnop3DViewer
 
 		public static void BresenhamHigh(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
-
-			byte* p;
-			int incE, incNE, d;
-			incE = (int)(2 * dx);
-			incNE = (int)(2 * dx - 2 * dy);
-			d = (int)(2 * dx - dy);
-
-			int rowsize = (b.Width * 3);
-			byte* lim = (byte*)b.Scan0.ToPointer();
-			lim += rowsize * (b.Height - 1);
+			int incE = (int)(2 * dx), incNE = (int)(2 * dx - 2 * dy), d = (int)(2 * dx - dy);
+			int rowsize = (b.Width * 3), co;
 			bool t = true;
-			int co;
+			byte* p, lim = (byte*)b.Scan0.ToPointer();
 
+			lim += rowsize * (b.Height - 1);
 			for (int y = 0; y < dy && t; y++)
 			{
 				co = 3 * x1;
