@@ -48,6 +48,7 @@ namespace Marnop3DViewer
                 line = sr.ReadLine();
             }
             obj.setActuals(obj.getOriginals());
+			obj.setNFaces();
 
             return obj;
         }
@@ -59,25 +60,55 @@ namespace Marnop3DViewer
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 			foreach (Face f in obj.getFaces())
             {
-                for (int i = 0;  i< f.getVertexs().Count - 1; i++)
+				if(f.getNormal().getZ() > 0)
                 {
-					x1 = (int)(330+obj.getActuals()[f.getVertexs()[i]].getX());
-					y1 = (int)(250+obj.getActuals()[f.getVertexs()[i]].getY());
-					x2 = (int)(330+obj.getActuals()[f.getVertexs()[i+1]].getX());
-					y2 = (int)(250+obj.getActuals()[f.getVertexs()[i+1]].getY());
+					for (int i = 0; i < f.getVertexs().Count - 1; i++)
+					{
+						x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
+						y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
+						x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
+						y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
+						bresenham(bdma, x1, y1, x2, y2);
+					}
+					x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
+					y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
+					x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
+					y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
 					bresenham(bdma, x1, y1, x2, y2);
-                }
-				x1 = (int)(330+obj.getActuals()[f.getVertexs()[f.getVertexs().Count-1]].getX());
-				y1 = (int)(250+obj.getActuals()[f.getVertexs()[f.getVertexs().Count-1]].getY());
-				x2 = (int)(330+obj.getActuals()[f.getVertexs()[0]].getX());
-				y2 = (int)(250+obj.getActuals()[f.getVertexs()[0]].getY());
-				bresenham(bdma, x1, y1, x2, y2);
+				}
 			}
 
 			b.UnlockBits(bdma);
 
 			return b;
 		}
+
+		/*public static Bitmap drawObject(Object3D obj, Bitmap b)
+		{
+			int x1, x2, y1, y2;
+			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
+				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+			foreach (Face f in obj.getFaces())
+			{
+				for (int i = 0; i < f.getVertexs().Count - 1; i++)
+				{
+					x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
+					y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
+					x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
+					y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
+					bresenham(bdma, x1, y1, x2, y2);
+				}
+				x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
+				y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
+				x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
+				y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
+				bresenham(bdma, x1, y1, x2, y2);
+			}
+
+			b.UnlockBits(bdma);
+
+			return b;
+		}*/
 
 		public static Bitmap drawObjectYZ(Object3D obj, Bitmap b)
 		{

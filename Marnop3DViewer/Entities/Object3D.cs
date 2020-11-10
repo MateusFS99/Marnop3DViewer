@@ -30,6 +30,27 @@ namespace Marnop3DViewer
             this.originals = originals;
         }
 
+        public void setNFaces()
+        {
+            foreach  (Face f in faces)
+            {
+                Vertex v2 = new Vertex(actuals[f.getVertexs()[1]].getX() - actuals[f.getVertexs()[0]].getX(),
+                    actuals[f.getVertexs()[1]].getY() - actuals[f.getVertexs()[0]].getY(),
+                    actuals[f.getVertexs()[1]].getZ() - actuals[f.getVertexs()[0]].getZ());
+                Vertex v1 = new Vertex(actuals[f.getVertexs()[f.getVertexs().Count-1]].getX() - actuals[f.getVertexs()[0]].getX(),
+                    actuals[f.getVertexs()[f.getVertexs().Count - 1]].getY() - actuals[f.getVertexs()[0]].getY(),
+                    actuals[f.getVertexs()[f.getVertexs().Count - 1]].getZ() - actuals[f.getVertexs()[0]].getZ());
+
+                Vertex va = new Vertex(v1.getY() * v2.getZ() - (v1.getZ() * v2.getY()),
+                    v1.getZ() * v2.getX() - (v1.getX() * v2.getZ()),
+                    v1.getX() * v2.getY() - (v1.getY() * v2.getX()));
+
+                double n = Math.Sqrt(Math.Pow(va.getX(), 2) + Math.Pow(va.getX(), 2) + Math.Pow(va.getZ(), 2));
+
+                f.setNormal(new Vertex(va.getX()/n, va.getY() / n, va.getZ() / n));
+            }
+        }
+
         public void scale(double x, double y, double z)
         {
             double[,] aux2 = new double[,] { { x, 0, 0, 0}, { 0, y, 0, 0}, { 0, 0, z, 0}, { 0, 0, 0, 1 } };

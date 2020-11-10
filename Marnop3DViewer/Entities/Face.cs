@@ -9,14 +9,15 @@ namespace Marnop3DViewer
     class Face
     {
         private List<int> vertex;
-        private double vnormal;
+        private Vertex vnormal;
 
         public Face()
         {
             vertex = new List<int>();
+            vnormal = new Vertex();
         }
 
-        public Face(List<int> vertices, double vnormal)
+        public Face(List<int> vertices, Vertex vnormal)
         {
             this.vertex = vertices;
             this.vnormal = vnormal;
@@ -32,14 +33,15 @@ namespace Marnop3DViewer
             return vertex;
         }
 
-        public void setNormal(double n)
+        public void setNormal(Vertex n)
         {
             vnormal = n;
         }
 
-        public double getNormal()
+        public Vertex getNormal()
         {
             return vnormal;
         }
+
     }
 }

@@ -206,12 +206,12 @@ namespace Marnop3DViewer
         {
 			if (e.KeyCode == Keys.ShiftKey)
 			{
-				//shift pressionado
+				//shift down
 				shift = true;
 			}
 			if (e.KeyCode == Keys.ControlKey)
 			{
-				//ctrl pressionado
+				//ctrl down
 				ctrl = true;
 			}
 		}
@@ -220,12 +220,12 @@ namespace Marnop3DViewer
         {
 			if (e.KeyCode == Keys.ShiftKey)
 			{
-				//shift solto
+				//shift up
 				shift = false;
 			}
 			if (e.KeyCode == Keys.ControlKey)
 			{
-				//ctrl solto
+				//ctrl up
 				ctrl = false;
 			}
 		}
@@ -245,6 +245,7 @@ namespace Marnop3DViewer
 					actobj.rotationX(dy);
 					actobj.rotationY(-dx);
 					actobj.setNewActuals();
+					actobj.setNFaces();
 					pbPrincipal.Image = Utils.drawObject(actobj, b);
 					x1 = x2;
 					y1 = y2;
@@ -258,6 +259,7 @@ namespace Marnop3DViewer
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
 					actobj.setNewActuals();
+					actobj.setNFaces();
 					pbPrincipal.Image = Utils.drawObject(actobj, b);
 
 					x1 = x2;
@@ -303,6 +305,7 @@ namespace Marnop3DViewer
 			}
 				
 			actobj.setNewActuals();
+			actobj.setNFaces();
 			pbPrincipal.Image = Utils.drawObject(actobj, b);
 		}
 	}
