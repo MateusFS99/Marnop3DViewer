@@ -44,6 +44,7 @@
 			this.btConfig = new System.Windows.Forms.Button();
 			this.pnFuncoes = new System.Windows.Forms.Panel();
 			this.cbIluminacao = new System.Windows.Forms.ComboBox();
+			this.cbfaceo = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.pbPrincipal)).BeginInit();
 			this.gbFormato.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbColor)).BeginInit();
@@ -237,6 +238,7 @@
 			// 
 			// pnFuncoes
 			// 
+			this.pnFuncoes.Controls.Add(this.cbfaceo);
 			this.pnFuncoes.Controls.Add(this.cbIluminacao);
 			this.pnFuncoes.Location = new System.Drawing.Point(679, 101);
 			this.pnFuncoes.Name = "pnFuncoes";
@@ -253,9 +255,21 @@
 			this.cbIluminacao.FormattingEnabled = true;
 			this.cbIluminacao.Location = new System.Drawing.Point(4, 9);
 			this.cbIluminacao.Name = "cbIluminacao";
-			this.cbIluminacao.Size = new System.Drawing.Size(121, 24);
+			this.cbIluminacao.Size = new System.Drawing.Size(130, 24);
 			this.cbIluminacao.TabIndex = 8;
 			this.cbIluminacao.Text = "Iluminação";
+			// 
+			// cbfaceo
+			// 
+			this.cbfaceo.AutoSize = true;
+			this.cbfaceo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbfaceo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+			this.cbfaceo.Location = new System.Drawing.Point(4, 39);
+			this.cbfaceo.Name = "cbfaceo";
+			this.cbfaceo.Size = new System.Drawing.Size(130, 24);
+			this.cbfaceo.TabIndex = 9;
+			this.cbfaceo.Text = "Faces Ocultas";
+			this.cbfaceo.UseVisualStyleBackColor = true;
 			// 
 			// TelaPrincipal
 			// 
@@ -274,6 +288,7 @@
 			this.Controls.Add(this.btLimpar);
 			this.Controls.Add(this.pbPrincipal);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.Name = "TelaPrincipal";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -286,6 +301,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.pbColor)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbLight)).EndInit();
 			this.pnFuncoes.ResumeLayout(false);
+			this.pnFuncoes.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -306,6 +322,7 @@
 		private System.Windows.Forms.Button btConfig;
 		private System.Windows.Forms.Panel pnFuncoes;
 		private System.Windows.Forms.ComboBox cbIluminacao;
+		private System.Windows.Forms.CheckBox cbfaceo;
 	}
 }
 

@@ -14,7 +14,7 @@ namespace Marnop3DViewer
 	public partial class TelaPrincipal : Form
 	{
 		private int mousex, mousey;
-		private bool dragging;
+		private bool dragging, shift, ctrl;
 		private Color cor;
 		private Object3D actobj;
 		private int x1, y1, x2, y2;
@@ -25,6 +25,8 @@ namespace Marnop3DViewer
 			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
 			pbColor.BackColor = Color.Blue;
 			exibeTab("info");
+			shift = false; 
+			ctrl = false;
 		}
 
 		private void drawGroupBox(Graphics g)
@@ -91,6 +93,7 @@ namespace Marnop3DViewer
 				config = valada;
 			}
 			cbIluminacao.Visible = tab.Equals("config");
+			cbfaceo.Visible = tab.Equals("config");
 			btInfo.FlatAppearance.BorderColor = info;
 			btConfig.FlatAppearance.BorderColor = config;
 		}
@@ -199,27 +202,31 @@ namespace Marnop3DViewer
 			exibeTab("config");
 		}
 
-        private void TelaPrincipal_KeyDown(object sender, KeyEventArgs e)
+		private void TelaPrincipal_KeyDown(object sender, KeyEventArgs e)
         {
-			if (e.KeyCode == Keys.Control)
+			if (e.KeyCode == Keys.ShiftKey)
 			{
 				//shift pressionado
+				shift = true;
 			}
-			if (e.KeyCode == Keys.Shift)
+			if (e.KeyCode == Keys.ControlKey)
 			{
 				//ctrl pressionado
+				ctrl = true;
 			}
 		}
 
         private void TelaPrincipal_KeyUp(object sender, KeyEventArgs e)
         {
-			if (e.KeyCode == Keys.Control)
+			if (e.KeyCode == Keys.ShiftKey)
 			{
-				//shift pressionado
+				//shift solto
+				shift = false;
 			}
-			if (e.KeyCode == Keys.Shift)
+			if (e.KeyCode == Keys.ControlKey)
 			{
-				//ctrl pressionado
+				//ctrl solto
+				ctrl = false;
 			}
 		}
 
@@ -241,8 +248,7 @@ namespace Marnop3DViewer
 					pbPrincipal.Image = Utils.drawObject(actobj, b);
 					x1 = x2;
 					y1 = y2;
-				}
-					
+				}	
 			}
 			else if (e.Button == MouseButtons.Right && actobj != null)
 			{
@@ -274,23 +280,26 @@ namespace Marnop3DViewer
 		private void pbPrincipal_MouseWheel(object sender, MouseEventArgs e)
 		{
 			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
+
 			//scroll down
 			if (e.Delta < 0)
             {
-				//if buttom pressed
-
-				//else 
-
-				actobj.scale(0.8, 0.8, 0.8);
+				if (shift)
+					actobj.rotationZ(-8);
+				else if (ctrl)
+					actobj.translation(0, 0, -2);
+				else
+					actobj.scale(0.8, 0.8, 0.8);
 			}
-				
 			//scroll up
 			else
             {
-				//if buttom pressed
-
-				//else 
-				actobj.scale(1.2, 1.2, 1.2);
+				if (shift)
+					actobj.rotationZ(8);
+				else if (ctrl)
+					actobj.translation(0, 0, 2);
+				else 
+					actobj.scale(1.2, 1.2, 1.2);
 			}
 				
 			actobj.setNewActuals();
