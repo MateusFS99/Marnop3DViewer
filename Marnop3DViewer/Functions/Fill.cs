@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace Marnop3DViewer
 {
-	class Lighting
+	class Fill
 	{
+		public static void flat()
+		{
+
+		}
+
+		public static void gourard()
+		{
+
+		}
+
+		public static void phong()
+		{
+
+		}
 	}
 }

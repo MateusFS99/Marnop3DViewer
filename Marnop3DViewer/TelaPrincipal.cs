@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Marnop3DViewer.Functions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,70 +15,22 @@ namespace Marnop3DViewer
 	public partial class TelaPrincipal : Form
 	{
 		private int mousex, mousey;
+		private int x1, y1, x2, y2;
 		private bool dragging, shift, ctrl;
+		private String fill;
 		private Color cor;
 		private Object3D actobj;
-		private int x1, y1, x2, y2;
 
 		public TelaPrincipal()
 		{
 			InitializeComponent();
-			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
-			pbColor.BackColor = Color.Blue;
-			exibeTab("info");
-			shift = false; 
+			shift = false;
 			ctrl = false;
-		}
-
-		private void drawGroupBox(Graphics g)
-		{
-			Brush borderBrush = new SolidBrush(Color.FromArgb(0, 151, 230));
-			Pen borderPen = new Pen(borderBrush);
-			SizeF strSize = g.MeasureString(this.gbFormato.Text, gbFormato.Font);
-			Rectangle rect = new Rectangle(gbFormato.ClientRectangle.X,
-										   gbFormato.ClientRectangle.Y + (int)(strSize.Height / 2),
-										   gbFormato.ClientRectangle.Width - 1,
-										   gbFormato.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
-
-			g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + gbFormato.Padding.Left, rect.Y));
-			g.DrawLine(borderPen, new Point(rect.X + gbFormato.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
-		}
-
-		private void drawPictureBox(Graphics g)
-		{
-			Brush borderBrush = new SolidBrush(Color.FromArgb(0, 151, 230));
-			Pen borderPen = new Pen(borderBrush);
-			SizeF strSize = g.MeasureString(this.pbPrincipal.Text, pbPrincipal.Font);
-			Rectangle rect = new Rectangle(pbPrincipal.ClientRectangle.X,
-										   pbPrincipal.ClientRectangle.Y + (int)(strSize.Height / 2),
-										   pbPrincipal.ClientRectangle.Width - 1,
-										   pbPrincipal.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
-
-			g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + pbPrincipal.Padding.Left, rect.Y));
-			g.DrawLine(borderPen, new Point(rect.X + pbPrincipal.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
-		}
-
-		private void drawPane(Graphics g)
-		{
-			Brush borderBrush = new SolidBrush(Color.FromArgb(0, 151, 230));
-			Pen borderPen = new Pen(borderBrush);
-			SizeF strSize = g.MeasureString(this.pnFuncoes.Text, pnFuncoes.Font);
-			Rectangle rect = new Rectangle(pnFuncoes.ClientRectangle.X,
-										   pnFuncoes.ClientRectangle.Y + (int)(strSize.Height / 2),
-										   pnFuncoes.ClientRectangle.Width - 1,
-										   pnFuncoes.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
-
-			g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-			g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + pnFuncoes.Padding.Left, rect.Y));
-			g.DrawLine(borderPen, new Point(rect.X + pnFuncoes.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+			fill = "Phong";
+			pbColor.BackColor = Color.Blue;
+			rbAramado.Checked = true;
+			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
+			exibeTab("info");
 		}
 
 		private void exibeTab(String tab)
@@ -85,15 +38,14 @@ namespace Marnop3DViewer
 			Color valada = Color.FromArgb(0, 151, 230), info = Color.Black, config = Color.Black;
 
 			if (tab.Equals("info"))
-			{
 				info = valada;
-			}
 			else if (tab.Equals("config"))
-			{
 				config = valada;
-			}
-			cbIluminacao.Visible = tab.Equals("config");
+
+			cbPreenchimento.Visible = tab.Equals("config");
+			cbIsometrica.Visible = tab.Equals("config");
 			cbfaceo.Visible = tab.Equals("config");
+
 			btInfo.FlatAppearance.BorderColor = info;
 			btConfig.FlatAppearance.BorderColor = config;
 		}
@@ -101,6 +53,7 @@ namespace Marnop3DViewer
 		private void btAbrir_Click(object sender, EventArgs e)
 		{
 			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
+
 			openFileDialog.FileName = "";
 			openFileDialog.Filter = "Arquivos (*.obj)|*.obj";
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -129,17 +82,17 @@ namespace Marnop3DViewer
 
 		private void gbFormato_Paint(object sender, PaintEventArgs e)
 		{
-			drawGroupBox(e.Graphics);
+			DrawColoredLines.drawGroupBox(e.Graphics,gbFormato);
 		}
 
 		private void pbPrincipal_Paint(object sender, PaintEventArgs e)
 		{
-			drawPictureBox(e.Graphics);
+			DrawColoredLines.drawPictureBox(e.Graphics,pbPrincipal);
 		}
 
 		private void pnFuncoes_Paint(object sender, PaintEventArgs e)
 		{
-			drawPane(e.Graphics);
+			DrawColoredLines.drawPanel(e.Graphics,pnFuncoes);
 		}
 
 		private void pbLight_MouseDown(object sender, MouseEventArgs e)
@@ -187,7 +140,14 @@ namespace Marnop3DViewer
 			Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
 			if (rbSolido.Checked)
-				Utils.scanLine(actobj, cor, b);
+			{
+				if (fill.Equals("Flat"))
+					Fill.flat();
+				else if (fill.Equals("Gourard"))
+					Fill.gourard();
+				else if (fill.Equals("Phong"))
+					Fill.phong();
+			}
 			else
 				pbPrincipal.Image = Utils.drawObject(actobj, b);
 		}
@@ -200,6 +160,28 @@ namespace Marnop3DViewer
 		private void btConfig_Click(object sender, EventArgs e)
 		{
 			exibeTab("config");
+		}
+
+		private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			fill = cbPreenchimento.Text;
+		}
+
+		private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (actobj != null)
+			{
+				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
+
+				if (cbIsometrica.Text.Equals("X,Y"))
+					pbPrincipal.Image = Utils.drawObject(actobj, b);
+				else if (cbIsometrica.Text.Equals("Y,Z"))
+					pbPrincipal.Image = Utils.drawObjectYZ(actobj, b);
+				else if (cbIsometrica.Text.Equals("X,Z"))
+					pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
+			}
+			else
+				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
 		}
 
 		private void TelaPrincipal_KeyDown(object sender, KeyEventArgs e)
@@ -266,11 +248,6 @@ namespace Marnop3DViewer
 					y1 = y2;
 				}
 			}
-		}
-
-		private void pbPrincipal_MouseUp(object sender, MouseEventArgs e)
-		{
-			
 		}
 
 		private void pbPrincipal_MouseDown(object sender, MouseEventArgs e)

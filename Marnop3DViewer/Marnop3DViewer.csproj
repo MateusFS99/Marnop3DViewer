@@ -76,7 +76,8 @@
     <Compile Include="Entities\Face.cs" />
     <Compile Include="Entities\NoPilha.cs" />
     <Compile Include="Entities\NoScan.cs" />
-    <Compile Include="Functions\Lighting.cs" />
+    <Compile Include="Functions\DrawColoredLines.cs" />
+    <Compile Include="Functions\Fill.cs" />
     <Compile Include="Entities\Object3D.cs" />
     <Compile Include="Functions\GraphicPrimitives.cs" />
     <Compile Include="TelaPrincipal.cs">

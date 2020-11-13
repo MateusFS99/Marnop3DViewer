@@ -43,8 +43,9 @@
 			this.btInfo = new System.Windows.Forms.Button();
 			this.btConfig = new System.Windows.Forms.Button();
 			this.pnFuncoes = new System.Windows.Forms.Panel();
-			this.cbIluminacao = new System.Windows.Forms.ComboBox();
 			this.cbfaceo = new System.Windows.Forms.CheckBox();
+			this.cbIsometrica = new System.Windows.Forms.ComboBox();
+			this.cbPreenchimento = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.pbPrincipal)).BeginInit();
 			this.gbFormato.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbColor)).BeginInit();
@@ -64,7 +65,6 @@
 			this.pbPrincipal.Paint += new System.Windows.Forms.PaintEventHandler(this.pbPrincipal_Paint);
 			this.pbPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseDown);
 			this.pbPrincipal.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseMove);
-			this.pbPrincipal.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbPrincipal_MouseUp);
 			// 
 			// openFileDialog
 			// 
@@ -239,37 +239,61 @@
 			// pnFuncoes
 			// 
 			this.pnFuncoes.Controls.Add(this.cbfaceo);
-			this.pnFuncoes.Controls.Add(this.cbIluminacao);
+			this.pnFuncoes.Controls.Add(this.cbIsometrica);
+			this.pnFuncoes.Controls.Add(this.cbPreenchimento);
 			this.pnFuncoes.Location = new System.Drawing.Point(679, 101);
 			this.pnFuncoes.Name = "pnFuncoes";
 			this.pnFuncoes.Size = new System.Drawing.Size(313, 457);
 			this.pnFuncoes.TabIndex = 6;
 			this.pnFuncoes.Paint += new System.Windows.Forms.PaintEventHandler(this.pnFuncoes_Paint);
 			// 
-			// cbIluminacao
-			// 
-			this.cbIluminacao.BackColor = System.Drawing.Color.Black;
-			this.cbIluminacao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.cbIluminacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbIluminacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
-			this.cbIluminacao.FormattingEnabled = true;
-			this.cbIluminacao.Location = new System.Drawing.Point(4, 9);
-			this.cbIluminacao.Name = "cbIluminacao";
-			this.cbIluminacao.Size = new System.Drawing.Size(130, 24);
-			this.cbIluminacao.TabIndex = 8;
-			this.cbIluminacao.Text = "Iluminação";
-			// 
 			// cbfaceo
 			// 
 			this.cbfaceo.AutoSize = true;
 			this.cbfaceo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cbfaceo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
-			this.cbfaceo.Location = new System.Drawing.Point(4, 39);
+			this.cbfaceo.Location = new System.Drawing.Point(22, 61);
 			this.cbfaceo.Name = "cbfaceo";
 			this.cbfaceo.Size = new System.Drawing.Size(130, 24);
 			this.cbfaceo.TabIndex = 9;
 			this.cbfaceo.Text = "Faces Ocultas";
 			this.cbfaceo.UseVisualStyleBackColor = true;
+			// 
+			// cbIsometrica
+			// 
+			this.cbIsometrica.BackColor = System.Drawing.Color.Black;
+			this.cbIsometrica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cbIsometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbIsometrica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+			this.cbIsometrica.FormattingEnabled = true;
+			this.cbIsometrica.Items.AddRange(new object[] {
+            "X,Y",
+            "Y,Z",
+            "X,Z"});
+			this.cbIsometrica.Location = new System.Drawing.Point(158, 19);
+			this.cbIsometrica.Name = "cbIsometrica";
+			this.cbIsometrica.Size = new System.Drawing.Size(130, 24);
+			this.cbIsometrica.TabIndex = 8;
+			this.cbIsometrica.Text = "Isométrica";
+			this.cbIsometrica.SelectedIndexChanged += new System.EventHandler(this.cbIsometrica_SelectedIndexChanged);
+			// 
+			// cbPreenchimento
+			// 
+			this.cbPreenchimento.BackColor = System.Drawing.Color.Black;
+			this.cbPreenchimento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.cbPreenchimento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbPreenchimento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+			this.cbPreenchimento.FormattingEnabled = true;
+			this.cbPreenchimento.Items.AddRange(new object[] {
+            "Flat",
+            "Gourard",
+            "Phong"});
+			this.cbPreenchimento.Location = new System.Drawing.Point(22, 20);
+			this.cbPreenchimento.Name = "cbPreenchimento";
+			this.cbPreenchimento.Size = new System.Drawing.Size(130, 24);
+			this.cbPreenchimento.TabIndex = 8;
+			this.cbPreenchimento.Text = "Preenchimento";
+			this.cbPreenchimento.SelectedIndexChanged += new System.EventHandler(this.cbPreenchimento_SelectedIndexChanged);
 			// 
 			// TelaPrincipal
 			// 
@@ -321,8 +345,9 @@
 		private System.Windows.Forms.Button btInfo;
 		private System.Windows.Forms.Button btConfig;
 		private System.Windows.Forms.Panel pnFuncoes;
-		private System.Windows.Forms.ComboBox cbIluminacao;
+		private System.Windows.Forms.ComboBox cbPreenchimento;
 		private System.Windows.Forms.CheckBox cbfaceo;
+		private System.Windows.Forms.ComboBox cbIsometrica;
 	}
 }
 
