@@ -33,10 +33,10 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		private static void BresenhamLow(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
+		private static void BresenhamLow(int x1, double y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
 			int rowsize = (b.Width * 3), incE = (int)(2 * dy), incNE = (int)(2 * dy - 2 * dx);
-			int	d = (int)(2 * dy - dx), co;
+			int d = (int)(2 * dy - dx), co;
 			bool t = true;
 			byte* p, lim = (byte*)b.Scan0.ToPointer();
 
@@ -47,7 +47,7 @@ namespace Marnop3DViewer
 				if (co < rowsize && co > 0)
 				{
 					p = (byte*)b.Scan0.ToPointer();
-					p += rowsize * y1 + co;
+					p += rowsize * (int)y1 + co;
 					if (p > (byte*)b.Scan0.ToPointer() && p < lim)
 						*p = (byte)255;
 
@@ -64,7 +64,7 @@ namespace Marnop3DViewer
 			}
 		}
 
-		private static void BresenhamHigh(int x1, int y1, BitmapData b, double dx, double dy, int fx, int fy)
+		private static void BresenhamHigh(int x1, double y1, BitmapData b, double dx, double dy, int fx, int fy)
 		{
 			int incE = (int)(2 * dx), incNE = (int)(2 * dx - 2 * dy), d = (int)(2 * dx - dy);
 			int rowsize = (b.Width * 3), co;
@@ -78,7 +78,7 @@ namespace Marnop3DViewer
 				p = (byte*)b.Scan0.ToPointer();
 				if (co < rowsize && co > 0)
 				{
-					p += rowsize * (y1 + y * fy) + co;
+					p += rowsize * ((int)y1 + y * fy) + co;
 
 					if (p > (byte*)b.Scan0.ToPointer() && p < lim)
 						*p = (byte)255;
@@ -96,7 +96,7 @@ namespace Marnop3DViewer
 			}
 		}
 
-		public static void bresenham(BitmapData b, int x1, int y1, int x2, int y2)
+		public static void bresenham(BitmapData b, int x1, double y1, int x2, double y2)
 		{
 			double dx = x2 - x1;
 			double dy = y2 - y1;
@@ -150,5 +150,36 @@ namespace Marnop3DViewer
 					}
 				}
 		}
+
+		public static void drawLine(int x1, int x2, double y, BitmapData b)
+        {
+			x1 = limiterL(0,x1);
+			x2 = limiterH(660, x2);
+			int rowsize = (b.Width * 3);
+
+			byte* p = (byte*)b.Scan0.ToPointer() + 3 * x1 + rowsize * (int)y;
+			if (y < rowsize*b.Height - 1)
+				while(x1 <= x2)
+				{
+					*(p++) = (byte)255;
+					*(p++) = (byte)0;
+					*(p++) = (byte)0;
+					x1++;
+				}
+        }
+
+		private static int limiterL(int lim, int n)
+        {
+			if (n < lim)
+				return lim;
+			return n;
+        }
+
+		private static int limiterH(int lim, int n)
+        {
+			if (n > lim)
+				return lim;
+			return n;
+        }
 	}
 }

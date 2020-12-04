@@ -105,6 +105,8 @@ namespace Marnop3DViewer
 			return b;
 		}
 
+
+
 		/*public static Bitmap drawObject(Object3D obj, Bitmap b)
 		{
 			int x1, x2, y1, y2;

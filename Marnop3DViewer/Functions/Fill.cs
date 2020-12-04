@@ -32,58 +32,55 @@ namespace Marnop3DViewer
 
 			for (int i = 0; i < (int)(ymax - ymin + 1); i++)
 				et[i] = new List<NoScan>();
-			for (int i = 1; i < lv.Count; i++)
+			for (int i = 0; i < lv.Count - 1; i++)
 			{
-				p1 = lv[i - 1];
-				p2 = lv[i];
-				if (p1.getY() != p2.getY())
-				{
+				p1 = lv[i];
+				p2 = lv[i + 1];
+				
 					if (p1.getY() < p2.getY())
 					{
 						ymin = p1.getY();
 						ymax = p2.getY();
 						xmin = p1.getX();
+						incx = (double)(p2.getX() - p1.getX()) / (p2.getY() - p1.getY());
 					}
-					else if (p1.getY() > p2.getY())
+					else
 					{
 						ymin = p2.getY();
 						ymax = p1.getY();
 						xmin = p2.getX();
+						incx = (double)(p1.getX() - p2.getX()) / (p1.getY() - p2.getY());
 					}
-					incx = (double)(p2.getX() - p1.getX()) / (p2.getY() - p1.getY());
+					
 					et[(int)(ymin - primy)].Add(new NoScan(ymax, xmin, incx));
-				}
 			}
 			p1 = lv[0];
 			p2 = lv[lv.Count - 1];
-			if (p1.getY() != p2.getY())
+			if (p1.getY() < p2.getY())
 			{
-				if (p1.getY() < p2.getY())
-				{
-					ymin = p1.getY();
-					ymax = p2.getY();
-					xmin = p1.getX();
-				}
-				else if (p1.getY() > p2.getY())
-				{
-					ymin = p2.getY();
-					ymax = p1.getY();
-					xmin = p2.getX();
-				}
-				incx = (double)(p2.getX() - p1.getX()) / (p2.getY() - p1.getY());
-				et[(int)(ymin - primy)].Add(new NoScan(ymax, xmin, incx));
+				ymin = p1.getY();
+				ymax = p2.getY();
+				xmin = p1.getX();
 			}
+			else
+			{
+				ymin = p2.getY();
+				ymax = p1.getY();
+				xmin = p2.getX();
+			}
+			incx = (double)(p2.getX() - p1.getX()) / (p2.getY() - p1.getY());
+			et[(int)(ymin - primy)].Add(new NoScan(ymax, xmin, incx));
 
 			List<NoScan> aet = et[y];
 
-			while (y < et.Length)
+			while (aet.Count>0)
 			{
 				for (int i = 0; i < aet.Count; i++)
-					if (y + primy == aet[i].Ymax)
+					if (y + primy + 1 >= aet[i].Ymax)
 						aet.RemoveAt(i);
 				aet.Sort((o1, o2) => o1.Xmin.CompareTo(o2.Xmin));
-				for (int i = 1; i < aet.Count; i += 2)
-					GraphicPrimitives.bresenham(b, (int)aet[i - 1].Xmin, (int)(y + primy), (int)aet[i].Xmin, (int)(y + primy));
+				for (int i = 0; i < aet.Count - 1; i += 2)
+					GraphicPrimitives.drawLine((int)aet[i].Xmin, (int)aet[i + 1].Xmin, (y + primy), b);
 				for (int i = 0; i < aet.Count; i++)
 					aet[i].Xmin += aet[i].Incx;
 				y++;
@@ -208,7 +205,7 @@ namespace Marnop3DViewer
 						ymax = p2.getY();
 						xmin = p1.getX();
 					}
-					else if (p1.getY() > p2.getY())
+					else
 					{
 						ymin = p2.getY();
 						ymax = p1.getY();
