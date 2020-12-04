@@ -141,12 +141,12 @@ namespace Marnop3DViewer
 
 			if (rbSolido.Checked)
 			{
-				if (fill.Equals("Flat"))
+				/*if (fill.Equals("Flat"))
 					Fill.flat();
 				else if (fill.Equals("Gourard"))
 					Fill.gourard();
 				else if (fill.Equals("Phong"))
-					Fill.phong();
+					Fill.phong();*/
 			}
 			else
 				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
