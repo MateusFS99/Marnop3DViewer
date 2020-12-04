@@ -52,7 +52,7 @@ namespace Marnop3DViewer
             return obj;
         }
 
-        public static Bitmap drawObject(Object3D obj, Bitmap b)
+        public static Bitmap drawObjectWire(Object3D obj, Bitmap b)
         {
 			int x1, x2, y1, y2;
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
@@ -75,6 +75,29 @@ namespace Marnop3DViewer
 					x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
 					y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
 					GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+				}
+			}
+
+			b.UnlockBits(bdma);
+
+			return b;
+		}
+
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b)
+		{
+			int x1, x2, y1, y2;
+			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
+				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+			List<Vertex> lv;
+			foreach (Face f in obj.getFaces())
+			{
+				if (f.getNormal().getZ() > 0)
+				{
+					lv = new List<Vertex>();
+					for (int i = 0; i < f.getVertexs().Count; i++)						
+						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
+					GraphicPrimitives.scanLine(lv, Color.FromArgb(255, 255, 255), bdma);
 				}
 			}
 

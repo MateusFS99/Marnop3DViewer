@@ -43,7 +43,7 @@ namespace Marnop3DViewer
 				config = valada;
 
 			cbPreenchimento.Visible = tab.Equals("config");
-			cbIsometrica.Visible = tab.Equals("config");
+			cbAxonometrica.Visible = tab.Equals("config");
 			cbfaceo.Visible = tab.Equals("config");
 
 			btInfo.FlatAppearance.BorderColor = info;
@@ -61,7 +61,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				pbPrincipal.Image = Utils.drawObject(actobj,b);
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b);
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -149,7 +149,7 @@ namespace Marnop3DViewer
 					Fill.phong();
 			}
 			else
-				pbPrincipal.Image = Utils.drawObject(actobj, b);
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
 		}
 
 		private void btInfo_Click(object sender, EventArgs e)
@@ -173,11 +173,11 @@ namespace Marnop3DViewer
 			{
 				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
-				if (cbIsometrica.Text.Equals("X,Y"))
-					pbPrincipal.Image = Utils.drawObject(actobj, b);
-				else if (cbIsometrica.Text.Equals("Z,Y"))
+				if (cbAxonometrica.Text.Equals("X,Y"))
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+				else if (cbAxonometrica.Text.Equals("Z,Y"))
 					pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
-				else if (cbIsometrica.Text.Equals("X,Z"))
+				else if (cbAxonometrica.Text.Equals("X,Z"))
 					pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
 			}
 			else
@@ -228,7 +228,7 @@ namespace Marnop3DViewer
 					actobj.rotationY(-dx);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObject(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -242,7 +242,7 @@ namespace Marnop3DViewer
 					actobj.translation(dx, dy, 0);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObject(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
 
 					x1 = x2;
 					y1 = y2;
@@ -283,7 +283,7 @@ namespace Marnop3DViewer
 				
 			actobj.setNewActuals();
 			actobj.setNFaces();
-			pbPrincipal.Image = Utils.drawObject(actobj, b);
+			pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
 		}
 	}
 }

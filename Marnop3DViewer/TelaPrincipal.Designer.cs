@@ -44,7 +44,7 @@
             this.btConfig = new System.Windows.Forms.Button();
             this.pnFuncoes = new System.Windows.Forms.Panel();
             this.cbfaceo = new System.Windows.Forms.CheckBox();
-            this.cbIsometrica = new System.Windows.Forms.ComboBox();
+            this.cbAxonometrica = new System.Windows.Forms.ComboBox();
             this.cbPreenchimento = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrincipal)).BeginInit();
             this.gbFormato.SuspendLayout();
@@ -239,7 +239,7 @@
             // pnFuncoes
             // 
             this.pnFuncoes.Controls.Add(this.cbfaceo);
-            this.pnFuncoes.Controls.Add(this.cbIsometrica);
+            this.pnFuncoes.Controls.Add(this.cbAxonometrica);
             this.pnFuncoes.Controls.Add(this.cbPreenchimento);
             this.pnFuncoes.Location = new System.Drawing.Point(679, 101);
             this.pnFuncoes.Name = "pnFuncoes";
@@ -259,23 +259,23 @@
             this.cbfaceo.Text = "Faces Ocultas";
             this.cbfaceo.UseVisualStyleBackColor = true;
             // 
-            // cbIsometrica
+            // cbAxonometrica
             // 
-            this.cbIsometrica.BackColor = System.Drawing.Color.Black;
-            this.cbIsometrica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbIsometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbIsometrica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
-            this.cbIsometrica.FormattingEnabled = true;
-            this.cbIsometrica.Items.AddRange(new object[] {
+            this.cbAxonometrica.BackColor = System.Drawing.Color.Black;
+            this.cbAxonometrica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbAxonometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAxonometrica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.cbAxonometrica.FormattingEnabled = true;
+            this.cbAxonometrica.Items.AddRange(new object[] {
             "X,Y",
             "Z,Y",
             "X,Z"});
-            this.cbIsometrica.Location = new System.Drawing.Point(158, 19);
-            this.cbIsometrica.Name = "cbIsometrica";
-            this.cbIsometrica.Size = new System.Drawing.Size(130, 24);
-            this.cbIsometrica.TabIndex = 8;
-            this.cbIsometrica.Text = "Isométrica";
-            this.cbIsometrica.SelectedIndexChanged += new System.EventHandler(this.cbIsometrica_SelectedIndexChanged);
+            this.cbAxonometrica.Location = new System.Drawing.Point(158, 19);
+            this.cbAxonometrica.Name = "cbAxonometrica";
+            this.cbAxonometrica.Size = new System.Drawing.Size(130, 24);
+            this.cbAxonometrica.TabIndex = 8;
+            this.cbAxonometrica.Text = "Axonométrica";
+            this.cbAxonometrica.SelectedIndexChanged += new System.EventHandler(this.cbIsometrica_SelectedIndexChanged);
             // 
             // cbPreenchimento
             // 
@@ -347,7 +347,7 @@
 		private System.Windows.Forms.Panel pnFuncoes;
 		private System.Windows.Forms.ComboBox cbPreenchimento;
 		private System.Windows.Forms.CheckBox cbfaceo;
-		private System.Windows.Forms.ComboBox cbIsometrica;
+		private System.Windows.Forms.ComboBox cbAxonometrica;
 	}
 }
 

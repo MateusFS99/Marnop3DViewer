@@ -27,7 +27,7 @@ namespace Marnop3DViewer
 
 						b.SetPixel((int)Math.Round(x), (int)Math.Round(y), color);
 					}
-					catch (Exception) { }
+					catch (Exception e) { }
 			}
 
 			return b;
@@ -101,8 +101,6 @@ namespace Marnop3DViewer
 			double dx = x2 - x1;
 			double dy = y2 - y1;
 
-			if (dx != 0 && dy != 0)
-			{
 				if (Math.Abs(dy) > Math.Abs(dx))
 				{
 					if (x1 < x2)
@@ -151,13 +149,12 @@ namespace Marnop3DViewer
 						}
 					}
 				}
-			}
 		}
 
-		public static void scanLine(Object3D obj, Color cor, Bitmap b)
+		public static void scanLine(List<Vertex> lv, Color cor, BitmapData b)
 		{
 			int y = 0;
-			List<Vertex> lv = obj.getActuals();
+
 			double ymin = lv[0].getY(), ymax = lv[0].getY(), xmin = 0, primy, incx = 0;
 			Vertex p1, p2;
 			Color color = Color.FromArgb(cor.ToArgb());
@@ -226,7 +223,7 @@ namespace Marnop3DViewer
 						aet.RemoveAt(i);
 				aet.Sort((o1, o2) => o1.Xmin.CompareTo(o2.Xmin));
 				for (int i = 1; i < aet.Count; i += 2)
-					retaDda(b, (int)aet[i - 1].Xmin, (int)aet[i].Xmin, (int)(y + primy), (int)(y + primy), color);
+					bresenham(b, (int)aet[i - 1].Xmin, (int)(y + primy), (int)aet[i].Xmin, (int)(y + primy));
 				for (int i = 0; i < aet.Count; i++)
 					aet[i].Xmin += aet[i].Incx;
 				y++;
