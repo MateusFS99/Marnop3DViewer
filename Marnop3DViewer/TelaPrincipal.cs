@@ -175,8 +175,8 @@ namespace Marnop3DViewer
 
 				if (cbIsometrica.Text.Equals("X,Y"))
 					pbPrincipal.Image = Utils.drawObject(actobj, b);
-				else if (cbIsometrica.Text.Equals("Y,Z"))
-					pbPrincipal.Image = Utils.drawObjectYZ(actobj, b);
+				else if (cbIsometrica.Text.Equals("Z,Y"))
+					pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
 				else if (cbIsometrica.Text.Equals("X,Z"))
 					pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
 			}

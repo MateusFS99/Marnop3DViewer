@@ -102,6 +102,23 @@ namespace Marnop3DViewer
             }
         }
 
+        public void setNewActualsP()
+        {
+            int d = 700;
+            actuals = null;
+            actuals = new List<Vertex>();
+            double x, y, z;
+            foreach (Vertex p in originals)
+            {
+                x = Convert.ToDouble(ma[0, 0] * p.getX() + ma[0, 1] * p.getY() + ma[0, 2] * p.getZ() + ma[0, 3]);
+                y = Convert.ToDouble(ma[1, 0] * p.getX() + ma[1, 1] * p.getY() + ma[1, 2] * p.getZ() + ma[1, 3]);
+                z = Convert.ToDouble(ma[2, 0] * p.getX() + ma[2, 1] * p.getY() + ma[2, 2] * p.getZ() + ma[2, 3]);
+                actuals.Add(new Vertex((x * d)/(z + d),
+                    (y * d)/(z + d),
+                    0));
+            }
+        }
+
         private void multiplyMatrix(double[,] maux)
         {
             double[,] aux = new double[4, 4];
