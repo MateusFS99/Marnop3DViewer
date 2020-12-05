@@ -26,7 +26,7 @@ namespace Marnop3DViewer
 			InitializeComponent();
 			shift = false;
 			ctrl = false;
-			fill = "Phong";
+			fill = "Flat";
 			pbAmbiente.BackColor = Color.Blue;
 			pbDifusa.BackColor = Color.Blue;
 			pbEspecular.BackColor = Color.Blue;

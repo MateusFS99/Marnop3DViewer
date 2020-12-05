@@ -52,30 +52,39 @@ namespace Marnop3DViewer
             return obj;
         }
 
-        public static Bitmap drawObjectWire(Object3D obj, Bitmap b)
-        {
+		private static void desenha(Object3D obj, Face f, BitmapData bdma)
+		{
 			int x1, x2, y1, y2;
+
+			for (int i = 0; i < f.getVertexs().Count - 1; i++)
+			{
+				x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
+				y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
+				x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
+				y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
+				GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+			}
+			x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
+			y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
+			x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
+			y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
+			GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+		}
+
+		public static Bitmap drawObjectWire(Object3D obj, Bitmap b, bool face)
+		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 			foreach (Face f in obj.getFaces())
-            {
-				
+			{
+				if (face)
                 {
-					for (int i = 0; i < f.getVertexs().Count - 1; i++)
-					{
-						x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
-						y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
-						x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
-						y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
-						GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
-					}
-					x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
-					y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
-					x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
-					y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
-					GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+					if (f.getNormal().getZ() > 0)
+						desenha(obj, f, bdma);
 				}
+				else
+					desenha(obj, f, bdma);
 			}
 
 			b.UnlockBits(bdma);
@@ -83,7 +92,7 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,string fill)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -118,9 +127,14 @@ namespace Marnop3DViewer
 				if (f.getNormal().getZ() > 0)
 				{
 					lv = new List<Vertex>();
-					for (int i = 0; i < f.getVertexs().Count; i++)						
+					for (int i = 0; i < f.getVertexs().Count; i++)
 						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					Fill.flat(lv, Color.FromArgb(limiter(0,255,r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
+					if (fill.Equals("Flat"))
+						Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
+					else if (fill.Equals("Gourard"))
+						Fill.gourard(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
+					else if (fill.Equals("Phong"))
+						Fill.phong(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
 				}
 			}
 
