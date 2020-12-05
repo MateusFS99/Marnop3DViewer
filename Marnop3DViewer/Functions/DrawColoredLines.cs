@@ -9,7 +9,6 @@ namespace Marnop3DViewer.Functions
 {
 	class DrawColoredLines
 	{
-
 		public static void drawGroupBox(Graphics g, System.Windows.Forms.GroupBox gbFormato)
 		{
 			Brush borderBrush = new SolidBrush(Color.FromArgb(0, 151, 230));

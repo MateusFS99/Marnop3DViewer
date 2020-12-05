@@ -18,7 +18,7 @@ namespace Marnop3DViewer
 		private int x1, y1, x2, y2, lx, ly;
 		private bool dragging, shift, ctrl;
 		private String fill;
-		private Color cor, ambiente, difusa, especular;
+		private Color ambiente, difusa, especular;
 		private Object3D actobj;
 
 		public TelaPrincipal()
@@ -27,7 +27,9 @@ namespace Marnop3DViewer
 			shift = false;
 			ctrl = false;
 			fill = "Phong";
-			pbColor.BackColor = Color.Blue;
+			pbAmbiente.BackColor = Color.Blue;
+			pbDifusa.BackColor = Color.Blue;
+			pbEspecular.BackColor = Color.Blue;
 			lx = 330;
 			ly = 10;
 			ambiente = Color.FromArgb(255,0,0,255);
@@ -50,9 +52,33 @@ namespace Marnop3DViewer
 			cbPreenchimento.Visible = tab.Equals("config");
 			cbAxonometrica.Visible = tab.Equals("config");
 			cbfaceo.Visible = tab.Equals("config");
+			lambiente.Visible = tab.Equals("config");
+			pbAmbiente.Visible = tab.Equals("config");
+			ldifusa.Visible = tab.Equals("config");
+			pbDifusa.Visible = tab.Equals("config");
+			lespecular.Visible = tab.Equals("config");
+			pbEspecular.Visible = tab.Equals("config");
 
 			btInfo.FlatAppearance.BorderColor = info;
 			btConfig.FlatAppearance.BorderColor = config;
+		}
+
+		private void desenhaObjeto(Bitmap b)
+		{
+			if (rbAramado.Checked)
+				mudaAxonometrica(b);
+			else
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
+		}
+
+		private void mudaAxonometrica(Bitmap b)
+		{
+			if (cbAxonometrica.Text.Equals("Z,Y"))
+				pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
+			else if (cbAxonometrica.Text.Equals("X,Z"))
+				pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
+			else
+				pbPrincipal.Image = Utils.drawObjectWire(actobj, b, cbfaceo.Checked);
 		}
 
 		private void btAbrir_Click(object sender, EventArgs e)
@@ -66,7 +92,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b, new Vertex(0, 1, 1), ambiente, difusa,especular);
+				desenhaObjeto(b);
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -75,14 +101,6 @@ namespace Marnop3DViewer
 		{
 			pbPrincipal.Image = null;
 			this.Text = "Marnop3DViewer";
-		}
-
-		private void btColor_Click(object sender, EventArgs e)
-		{
-			ColorDialog colorPicker = new ColorDialog();
-
-			if (colorPicker.ShowDialog() == DialogResult.OK)
-				cor = pbColor.BackColor = colorPicker.Color;
 		}
 
 		private void gbFormato_Paint(object sender, PaintEventArgs e)
@@ -147,16 +165,9 @@ namespace Marnop3DViewer
 			Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
 			if (rbSolido.Checked)
-			{
-				/*if (fill.Equals("Flat"))
-					Fill.flat();
-				else if (fill.Equals("Gourard"))
-					Fill.gourard();
-				else if (fill.Equals("Phong"))
-					Fill.phong();*/
-			}
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
 			else
-				pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
+				pbPrincipal.Image = Utils.drawObjectWire(actobj, b, cbfaceo.Checked);
 		}
 
 		private void btInfo_Click(object sender, EventArgs e)
@@ -169,24 +180,31 @@ namespace Marnop3DViewer
 			exibeTab("config");
 		}
 
-        private void ldifusa_Click(object sender, EventArgs e)
-        {
+		private void pbAmbiente_Click(object sender, EventArgs e)
+		{
 			ColorDialog colorPicker = new ColorDialog();
 
 			if (colorPicker.ShowDialog() == DialogResult.OK)
-				difusa = pbColor.BackColor = colorPicker.Color;
-
+				ambiente = pbAmbiente.BackColor = colorPicker.Color;
 		}
 
-        private void lespecular_Click(object sender, EventArgs e)
-        {
+		private void pbDifusa_Click(object sender, EventArgs e)
+		{
 			ColorDialog colorPicker = new ColorDialog();
 
 			if (colorPicker.ShowDialog() == DialogResult.OK)
-				especular = pbColor.BackColor = colorPicker.Color;
+				difusa = pbDifusa.BackColor = colorPicker.Color;
 		}
 
-        private void pbLight_Click(object sender, EventArgs e)
+		private void pbEspecular_Click(object sender, EventArgs e)
+		{
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				especular = pbEspecular.BackColor = colorPicker.Color;
+		}
+
+		private void pbLight_Click(object sender, EventArgs e)
         {
 
         }
@@ -196,31 +214,37 @@ namespace Marnop3DViewer
 			fill = cbPreenchimento.Text;
 		}
 
-		private void cbfaceo_CheckedChanged(object sender, EventArgs e)
-		{
-
-		}
-
         private void lambiente_Click(object sender, EventArgs e)
         {
 			ColorDialog colorPicker = new ColorDialog();
 
 			if (colorPicker.ShowDialog() == DialogResult.OK)
-				ambiente = pbColor.BackColor = colorPicker.Color;
+				ambiente = pbAmbiente.BackColor = colorPicker.Color;
 		}
 
-        private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
+		private void ldifusa_Click(object sender, EventArgs e)
+		{
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				difusa = pbDifusa.BackColor = colorPicker.Color;
+		}
+
+		private void lespecular_Click(object sender, EventArgs e)
+		{
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				especular = pbEspecular.BackColor = colorPicker.Color;
+		}
+
+		private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (actobj != null)
 			{
 				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
-				if (cbAxonometrica.Text.Equals("X,Y"))
-					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
-				else if (cbAxonometrica.Text.Equals("Z,Y"))
-					pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
-				else if (cbAxonometrica.Text.Equals("X,Z"))
-					pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
+				desenhaObjeto(b);
 			}
 			else
 				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
@@ -270,7 +294,7 @@ namespace Marnop3DViewer
 					actobj.rotationY(-dx);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente,difusa,especular);
+					desenhaObjeto(b);
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -284,7 +308,7 @@ namespace Marnop3DViewer
 					actobj.translation(dx, dy, 0);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0 , 1, 1), ambiente, difusa, especular);
+					desenhaObjeto(b);
 
 					x1 = x2;
 					y1 = y2;
@@ -325,7 +349,7 @@ namespace Marnop3DViewer
 				
 			actobj.setNewActuals();
 			actobj.setNFaces();
-			pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0,1,1),ambiente,difusa,especular);
+			desenhaObjeto(b);
 		}
 	}
 }
