@@ -100,6 +100,22 @@ namespace Marnop3DViewer
 				else
 					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
 			}
+
+			int lux, luy;
+			if (lx < 280)
+				lux = 1;
+			else if (lx > 490)
+				lux = -1;
+			else lux = 0;
+			if (ly < 220)
+				luy = 1;
+			else if (ly > 350)
+				luy = -1;
+			else luy = 0;
+			if (rbAramado.Checked)
+				mudaAxonometrica(b);
+			else
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux,luy, 1), ambiente, difusa, especular, fill);
 		}
 
 		private void mudaAxonometrica(Bitmap b)
@@ -161,8 +177,7 @@ namespace Marnop3DViewer
 				dragging = true;
 				mousex = -e.X;
 				mousey = -e.Y;
-				lx = this.PointToClient(MousePosition).X;
-				ly = this.PointToClient(MousePosition).Y;
+				
 				Cursor.Clip = this.RectangleToScreen(new Rectangle(clipleft, cliptop, clipwidth, clipheight));
 				pbLight.Invalidate();
 			}
@@ -185,6 +200,8 @@ namespace Marnop3DViewer
 		{
 			if (dragging)
 			{
+				lx = this.PointToClient(MousePosition).X;
+				ly = this.PointToClient(MousePosition).Y;
 				dragging = false;
 				Cursor.Clip = System.Drawing.Rectangle.Empty;
 				pbLight.Invalidate();
@@ -194,9 +211,23 @@ namespace Marnop3DViewer
 		private void rbSolido_CheckedChanged(object sender, EventArgs e)
 		{
 			Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
-
+			int lux;
+			int luy;
 			if (rbSolido.Checked)
-				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
+            {
+				if (lx < 300)
+					lux = 1;
+				else if (lx > 350)
+					lux = -1;
+				else lux = 0;
+
+				if (ly < 225)
+					luy = 1;
+				else if (ly > 275)
+					luy = -1;
+				else luy = 0;
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
+			}
 			else
 				pbPrincipal.Image = Utils.drawObjectWire(actobj, b, cbfaceo.Checked);
 		}
