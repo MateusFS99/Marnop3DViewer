@@ -76,8 +76,31 @@ namespace Marnop3DViewer
 			btConfig.FlatAppearance.BorderColor = config;
 		}
 
-		private void desenhaObjeto(Bitmap b)
+		private void desenhaObjeto(Bitmap b, char op)
 		{
+			if(op == 'a')
+			{
+				if (rbAramado.Checked)
+					mudaAxonometrica(b);
+				else
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
+			}
+			else if (op == 'p')
+			{
+				if (cbProjecoes.Text.Equals("Cabinet"))
+					actobj.setCavalierCabinet(0.5, 45);
+				else if (cbProjecoes.Text.Equals("Cavalier"))
+					actobj.setCavalierCabinet(1, 45);
+				else if (tbDistancia.Text != "")
+					actobj.setNewActualsP(Convert.ToInt32(tbDistancia.Text));
+				else
+					MessageBox.Show("Distância não definida!", "Erro!", MessageBoxButtons.OK);
+				if (rbAramado.Checked)
+					pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
+				else
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente, difusa, especular, fill);
+			}
+
 			int lux, luy;
 			if (lx < 280)
 				lux = 1;
@@ -116,7 +139,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				desenhaObjeto(b);
+				desenhaObjeto(b,'a');
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -250,14 +273,9 @@ namespace Marnop3DViewer
 
 		private void cbProjecoes_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (cbProjecoes.Text.Equals("Cabinet"))
-				actobj.setCavalierCabinet(0.5, 45);
-			else if (cbProjecoes.Text.Equals("Cavalier"))
-				actobj.setCavalierCabinet(1, 45);
-			else if (tbDistancia.Text != null)
-				actobj.setNewActualsP(Convert.ToInt32(tbDistancia.Text));
-			else
-				MessageBox.Show("Distância não definida!", "Erro!", MessageBoxButtons.OK);
+			Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
+
+			desenhaObjeto(b, 'p');
 		}
 
 		private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
@@ -295,7 +313,7 @@ namespace Marnop3DViewer
 			{
 				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
-				desenhaObjeto(b);
+				desenhaObjeto(b,'a');
 			}
 			else
 				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
@@ -343,9 +361,15 @@ namespace Marnop3DViewer
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.rotationX(dy);
 					actobj.rotationY(-dx);
-					actobj.setNewActuals();
 					actobj.setNFaces();
-					desenhaObjeto(b);
+					if (tbDistancia.Text == "")
+					{
+						actobj.setNewActuals();
+						desenhaObjeto(b, 'a');
+					}
+					else
+						desenhaObjeto(b, 'p');
+
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -357,9 +381,14 @@ namespace Marnop3DViewer
                 {
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
-					actobj.setNewActuals();
 					actobj.setNFaces();
-					desenhaObjeto(b);
+					if (tbDistancia.Text == "")
+					{
+						actobj.setNewActuals();
+						desenhaObjeto(b, 'a');
+					}
+					else
+						desenhaObjeto(b, 'p');
 
 					x1 = x2;
 					y1 = y2;
@@ -397,10 +426,15 @@ namespace Marnop3DViewer
 				else 
 					actobj.scale(1.2, 1.2, 1.2);
 			}
-				
-			actobj.setNewActuals();
+			
 			actobj.setNFaces();
-			desenhaObjeto(b);
+			if(tbDistancia.Text == "")
+			{
+				actobj.setNewActuals();
+				desenhaObjeto(b, 'a');
+			}
+			else
+				desenhaObjeto(b, 'p');
 		}
 	}
 }
