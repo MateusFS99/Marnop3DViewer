@@ -120,9 +120,8 @@ namespace Marnop3DViewer
             }
         }
 
-        public void setNewActualsP()
+        public void setNewActualsP(int d)
         {
-            int d = 700;
             actuals = null;
             actuals = new List<Vertex>();
             double x, y, z;

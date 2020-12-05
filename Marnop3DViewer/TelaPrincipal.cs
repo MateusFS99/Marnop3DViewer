@@ -37,7 +37,7 @@ namespace Marnop3DViewer
 			especular = Color.FromArgb(255,255, 255, 255);
 			rbAramado.Checked = true;
 			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
-			exibeTab("info");
+			exibeTab("config");
 		}
 
 		private void exibeTab(String tab)
@@ -49,6 +49,16 @@ namespace Marnop3DViewer
 			else if (tab.Equals("config"))
 				config = valada;
 
+			label1.Visible = tab.Equals("info");
+			label2.Visible = tab.Equals("info");
+			label3.Visible = tab.Equals("info");
+			label4.Visible = tab.Equals("info");
+			label5.Visible = tab.Equals("info");
+			label6.Visible = tab.Equals("info");
+			label7.Visible = tab.Equals("info");
+			label8.Visible = tab.Equals("info");
+			label9.Visible = tab.Equals("info");
+			label10.Visible = tab.Equals("info");
 			cbPreenchimento.Visible = tab.Equals("config");
 			cbAxonometrica.Visible = tab.Equals("config");
 			cbfaceo.Visible = tab.Equals("config");
@@ -58,6 +68,9 @@ namespace Marnop3DViewer
 			pbDifusa.Visible = tab.Equals("config");
 			lespecular.Visible = tab.Equals("config");
 			pbEspecular.Visible = tab.Equals("config");
+			cbProjecoes.Visible = tab.Equals("config");
+			lbDist.Visible = tab.Equals("config");
+			tbDistancia.Visible = tab.Equals("config");
 
 			btInfo.FlatAppearance.BorderColor = info;
 			btConfig.FlatAppearance.BorderColor = config;
@@ -235,7 +248,19 @@ namespace Marnop3DViewer
 
         }
 
-        private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
+		private void cbProjecoes_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cbProjecoes.Text.Equals("Cabinet"))
+				actobj.setCavalierCabinet(0.5, 45);
+			else if (cbProjecoes.Text.Equals("Cavalier"))
+				actobj.setCavalierCabinet(1, 45);
+			else if (tbDistancia.Text != null)
+				actobj.setNewActualsP(Convert.ToInt32(tbDistancia.Text));
+			else
+				MessageBox.Show("Distância não definida!", "Erro!", MessageBoxButtons.OK);
+		}
+
+		private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			fill = cbPreenchimento.Text;
 		}
