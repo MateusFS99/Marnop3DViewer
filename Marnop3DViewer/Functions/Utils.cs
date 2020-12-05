@@ -11,7 +11,7 @@ namespace Marnop3DViewer
 {
     static class Utils
     {
-        public static Object3D readObj(StreamReader sr)
+		public static Object3D readObj(StreamReader sr)
         {
             Object3D obj = new Object3D();
             String[] s,s1;
@@ -52,30 +52,37 @@ namespace Marnop3DViewer
             return obj;
         }
 
-        public static Bitmap drawObjectWire(Object3D obj, Bitmap b)
-        {
+		private static void desenha(Object3D obj, Face f, BitmapData bdma)
+		{
 			int x1, x2, y1, y2;
+
+			for (int i = 0; i < f.getVertexs().Count - 1; i++)
+			{
+				x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
+				y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
+				x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
+				y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
+				GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+			}
+			x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
+			y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
+			x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
+			y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
+			GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
+		}
+
+		public static Bitmap drawObjectWire(Object3D obj, Bitmap b, bool face)
+        {
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 			foreach (Face f in obj.getFaces())
             {
-				
-                {
-					for (int i = 0; i < f.getVertexs().Count - 1; i++)
-					{
-						x1 = (int)(330 + obj.getActuals()[f.getVertexs()[i]].getX());
-						y1 = (int)(250 + obj.getActuals()[f.getVertexs()[i]].getY());
-						x2 = (int)(330 + obj.getActuals()[f.getVertexs()[i + 1]].getX());
-						y2 = (int)(250 + obj.getActuals()[f.getVertexs()[i + 1]].getY());
-						GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
-					}
-					x1 = (int)(330 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getX());
-					y1 = (int)(250 + obj.getActuals()[f.getVertexs()[f.getVertexs().Count - 1]].getY());
-					x2 = (int)(330 + obj.getActuals()[f.getVertexs()[0]].getX());
-					y2 = (int)(250 + obj.getActuals()[f.getVertexs()[0]].getY());
-					GraphicPrimitives.bresenham(bdma, x1, y1, x2, y2);
-				}
+				if (face)
+					if(f.getNormal().getZ() > 0)
+						desenha(obj,f,bdma);
+				else
+					desenha(obj, f, bdma);
 			}
 
 			b.UnlockBits(bdma);
@@ -83,7 +90,7 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e, String fill)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -111,16 +118,21 @@ namespace Marnop3DViewer
 				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
 				hn = Math.Pow((h.getX() * f.getNormal().getX() + h.getY() * f.getNormal().getY() + h.getZ() * f.getNormal().getZ()), 10);
 
-				r = (int)(255* (0.1 * argb[0] + 0.4 * drgb[0] * ln + 0.3 * ergb[0] * hn));
-				g = (int)(255 * (0.1 * argb[1] + 0.4 * drgb[1] * ln + 0.3 * ergb[1] * hn));
-				bc = (int)(255 * (0.1 * argb[2] + 0.4 * drgb[2] * ln + 0.3 * ergb[2] * hn));
+				r = (int)(255* (0.1 * argb[0] + 0.5 * drgb[0] * ln + 0.5 * ergb[0] * hn));
+				g = (int)(255 * (0.1 * argb[1] + 0.5 * drgb[1] * ln + 0.5 * ergb[1] * hn));
+				bc = (int)(255 * (0.1 * argb[2] + 0.5 * drgb[2] * ln + 0.5 * ergb[2] * hn));
 
 				if (f.getNormal().getZ() > 0)
 				{
 					lv = new List<Vertex>();
 					for (int i = 0; i < f.getVertexs().Count; i++)						
 						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					Fill.flat(lv, Color.FromArgb(r, g, bc), bdma);
+					if (fill.Equals("Flat"))
+						Fill.flat(lv, Color.FromArgb(r, g, bc), bdma);
+					else if (fill.Equals("Gourard"))
+						Fill.gourard(lv, Color.FromArgb(r, g, bc), bdma);
+					else if (fill.Equals("Phong"))
+						Fill.phong(lv, Color.FromArgb(r, g, bc), bdma);
 				}
 			}
 

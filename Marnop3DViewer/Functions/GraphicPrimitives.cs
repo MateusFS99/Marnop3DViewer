@@ -24,7 +24,6 @@ namespace Marnop3DViewer
 				for (float x = x1, y = y1; x < x2; x += xinc, y += yinc)
 					try
 					{
-
 						b.SetPixel((int)Math.Round(x), (int)Math.Round(y), color);
 					}
 					catch (Exception e) { }
