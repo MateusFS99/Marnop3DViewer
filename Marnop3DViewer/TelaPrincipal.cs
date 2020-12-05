@@ -61,7 +61,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b);
+				pbPrincipal.Image = Utils.drawObjectWire(actobj,b);
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -149,7 +149,7 @@ namespace Marnop3DViewer
 					Fill.phong();*/
 			}
 			else
-				pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+				pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
 		}
 
 		private void btInfo_Click(object sender, EventArgs e)
@@ -167,6 +167,11 @@ namespace Marnop3DViewer
 			fill = cbPreenchimento.Text;
 		}
 
+		private void cbfaceo_CheckedChanged(object sender, EventArgs e)
+		{
+
+		}
+
 		private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (actobj != null)
@@ -174,7 +179,7 @@ namespace Marnop3DViewer
 				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 
 				if (cbAxonometrica.Text.Equals("X,Y"))
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
 				else if (cbAxonometrica.Text.Equals("Z,Y"))
 					pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
 				else if (cbAxonometrica.Text.Equals("X,Z"))
@@ -226,9 +231,9 @@ namespace Marnop3DViewer
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.rotationX(dy);
 					actobj.rotationY(-dx);
-					actobj.setNewActuals();
+					actobj.setCavalierCabinet(1, 45);
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -240,9 +245,9 @@ namespace Marnop3DViewer
                 {
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
-					actobj.setNewActuals();
+					actobj.setCavalierCabinet(1, 45);
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
 
 					x1 = x2;
 					y1 = y2;
@@ -281,9 +286,9 @@ namespace Marnop3DViewer
 					actobj.scale(1.2, 1.2, 1.2);
 			}
 				
-			actobj.setNewActuals();
+			actobj.setCavalierCabinet(1, 45);
 			actobj.setNFaces();
-			pbPrincipal.Image = Utils.drawObjectSolid(actobj, b);
+			pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
 		}
 	}
 }

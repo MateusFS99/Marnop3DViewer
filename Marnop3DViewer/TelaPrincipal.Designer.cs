@@ -258,6 +258,7 @@
             this.cbfaceo.TabIndex = 9;
             this.cbfaceo.Text = "Faces Ocultas";
             this.cbfaceo.UseVisualStyleBackColor = true;
+            this.cbfaceo.CheckedChanged += new System.EventHandler(this.cbfaceo_CheckedChanged);
             // 
             // cbAxonometrica
             // 

@@ -26,3 +26,13 @@ C:\Users\Mateus\Downloads\6º Termo\CG\2º Bimestre\Marnop3DViewer\Marnop3DViewe
 C:\Users\Mateus\Downloads\6º Termo\CG\2º Bimestre\Marnop3DViewer\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
 C:\Users\Mateus\Downloads\6º Termo\CG\2º Bimestre\Marnop3DViewer\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
 C:\Users\Mateus\Downloads\6º Termo\CG\2º Bimestre\Marnop3DViewer\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.csprojAssemblyReference.cache
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.TelaPrincipal.resources
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.Properties.Resources.resources
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.CoreCompileInputs.cache
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe.config
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe
+C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.pdb

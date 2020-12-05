@@ -102,6 +102,24 @@ namespace Marnop3DViewer
             }
         }
 
+        public void setCavalierCabinet(double l, int grau)
+        {
+            actuals = null;
+            actuals = new List<Vertex>();
+            double[,] maux = new double[,] { { 1, 0, l*Math.Cos(grau * Math.PI / 180), 0 }, { 0, 1, 0, 0 }, { 0, 0, l * Math.Sin(grau * Math.PI / 180), 0 }, { 0, 0, 0, 1 } };
+
+            foreach (Vertex p in originals)
+            {
+                double x = Convert.ToDouble(ma[0, 0] * p.getX() + ma[0, 1] * p.getY() + ma[0, 2] * p.getZ() + ma[0, 3]);
+                double y = Convert.ToDouble(ma[1, 0] * p.getX() + ma[1, 1] * p.getY() + ma[1, 2] * p.getZ() + ma[1, 3]);
+                double z = Convert.ToDouble(ma[2, 0] * p.getX() + ma[2, 1] * p.getY() + ma[2, 2] * p.getZ() + ma[2, 3]);
+
+                actuals.Add(new Vertex(x * maux[0, 0] + maux[0, 1] * y + maux[0, 2] * z,
+                                       x * maux[1, 0] + maux[1, 1] * y + maux[1, 2] * z,
+                                       x * maux[2, 0] + maux[2, 1] * y + maux[2, 2] * z));
+            }
+        }
+
         public void setNewActualsP()
         {
             int d = 700;

@@ -60,7 +60,7 @@ namespace Marnop3DViewer
 
 			foreach (Face f in obj.getFaces())
             {
-				if(f.getNormal().getZ() > 0)
+				
                 {
 					for (int i = 0; i < f.getVertexs().Count - 1; i++)
 					{
