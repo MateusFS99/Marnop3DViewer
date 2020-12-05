@@ -80,7 +80,7 @@ namespace Marnop3DViewer
 						aet.RemoveAt(i);
 				aet.Sort((o1, o2) => o1.Xmin.CompareTo(o2.Xmin));
 				for (int i = 0; i < aet.Count - 1; i += 2)
-					GraphicPrimitives.drawLine((int)aet[i].Xmin, (int)aet[i + 1].Xmin, (y + primy), b);
+					GraphicPrimitives.drawLine((int)aet[i].Xmin, (int)aet[i + 1].Xmin, (y + primy), b, cor);
 				for (int i = 0; i < aet.Count; i++)
 					aet[i].Xmin += aet[i].Incx;
 				y++;

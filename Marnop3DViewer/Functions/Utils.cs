@@ -83,20 +83,44 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
+			int r, g, bc;
+
+			double[] argb = new double[] { a.R / 255.0, a.G * 0.9 / 255, a.B * 0.9 / 255 };
+			double[] drgb = new double[] { d.R * 0.5 / 255, d.G * 0.7 / 255, d.B * 0.5 / 255 };
+			double[] ergb = new double[] { e.R * 0.5 / 255, e.G * 0.5 / 255, e.B * 0.6 / 255 };
+
+			Vertex h;
+			double ln, hn;
+			double n = Math.Sqrt(Math.Pow(l.getX(), 2) + Math.Pow(l.getX(), 2) + Math.Pow(l.getZ(), 2));
+
+			l.setX(l.getX() / n);
+			l.setY(l.getY() / n);
+			l.setZ(l.getZ() / n);
+
+			n = Math.Sqrt(Math.Pow(l.getX(), 2) + Math.Pow(l.getX(), 2) + Math.Pow((l.getZ() + 1), 2));
+			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
+
 			List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
 			{
+				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
+				hn = Math.Pow((h.getX() * f.getNormal().getX() + h.getY() * f.getNormal().getY() + h.getZ() * f.getNormal().getZ()), 10);
+
+				r = (int)(255* (0.1 * argb[0] + 0.4 * drgb[0] * ln + 0.3 * ergb[0] * hn));
+				g = (int)(255 * (0.1 * argb[1] + 0.4 * drgb[1] * ln + 0.3 * ergb[1] * hn));
+				bc = (int)(255 * (0.1 * argb[2] + 0.4 * drgb[2] * ln + 0.3 * ergb[2] * hn));
+
 				if (f.getNormal().getZ() > 0)
 				{
 					lv = new List<Vertex>();
 					for (int i = 0; i < f.getVertexs().Count; i++)						
 						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					Fill.flat(lv, Color.FromArgb(255, 255, 255), bdma);
+					Fill.flat(lv, Color.FromArgb(r, g, bc), bdma);
 				}
 			}
 

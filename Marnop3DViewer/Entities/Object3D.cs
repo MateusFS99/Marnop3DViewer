@@ -45,7 +45,7 @@ namespace Marnop3DViewer
                     v1.getZ() * v2.getX() - (v1.getX() * v2.getZ()),
                     v1.getX() * v2.getY() - (v1.getY() * v2.getX()));
 
-                double n = Math.Sqrt(Math.Pow(va.getX(), 2) + Math.Pow(va.getX(), 2) + Math.Pow(va.getZ(), 2));
+                double n = Math.Sqrt(Math.Pow(va.getX(), 2) + Math.Pow(va.getY(), 2) + Math.Pow(va.getZ(), 2));
 
                 f.setNormal(new Vertex(va.getX()/n, va.getY() / n, va.getZ() / n));
             }

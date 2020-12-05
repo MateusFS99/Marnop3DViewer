@@ -46,6 +46,9 @@
             this.cbfaceo = new System.Windows.Forms.CheckBox();
             this.cbAxonometrica = new System.Windows.Forms.ComboBox();
             this.cbPreenchimento = new System.Windows.Forms.ComboBox();
+            this.ldifusa = new System.Windows.Forms.Button();
+            this.lespecular = new System.Windows.Forms.Button();
+            this.lambiente = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrincipal)).BeginInit();
             this.gbFormato.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor)).BeginInit();
@@ -194,6 +197,7 @@
             this.pbLight.Size = new System.Drawing.Size(32, 36);
             this.pbLight.TabIndex = 5;
             this.pbLight.TabStop = false;
+            this.pbLight.Click += new System.EventHandler(this.pbLight_Click);
             this.pbLight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbLight_MouseDown);
             this.pbLight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbLight_MouseMove);
             this.pbLight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbLight_MouseUp);
@@ -238,6 +242,9 @@
             // 
             // pnFuncoes
             // 
+            this.pnFuncoes.Controls.Add(this.lambiente);
+            this.pnFuncoes.Controls.Add(this.lespecular);
+            this.pnFuncoes.Controls.Add(this.ldifusa);
             this.pnFuncoes.Controls.Add(this.cbfaceo);
             this.pnFuncoes.Controls.Add(this.cbAxonometrica);
             this.pnFuncoes.Controls.Add(this.cbPreenchimento);
@@ -296,6 +303,63 @@
             this.cbPreenchimento.Text = "Preenchimento";
             this.cbPreenchimento.SelectedIndexChanged += new System.EventHandler(this.cbPreenchimento_SelectedIndexChanged);
             // 
+            // ldifusa
+            // 
+            this.ldifusa.BackColor = System.Drawing.Color.Black;
+            this.ldifusa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ldifusa.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.ldifusa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ldifusa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ldifusa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.ldifusa.Image = ((System.Drawing.Image)(resources.GetObject("ldifusa.Image")));
+            this.ldifusa.Location = new System.Drawing.Point(22, 147);
+            this.ldifusa.Name = "ldifusa";
+            this.ldifusa.Size = new System.Drawing.Size(130, 35);
+            this.ldifusa.TabIndex = 10;
+            this.ldifusa.Text = "Difusa";
+            this.ldifusa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ldifusa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ldifusa.UseVisualStyleBackColor = false;
+            this.ldifusa.Click += new System.EventHandler(this.ldifusa_Click);
+            // 
+            // lespecular
+            // 
+            this.lespecular.BackColor = System.Drawing.Color.Black;
+            this.lespecular.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lespecular.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.lespecular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lespecular.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lespecular.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.lespecular.Image = ((System.Drawing.Image)(resources.GetObject("lespecular.Image")));
+            this.lespecular.Location = new System.Drawing.Point(22, 188);
+            this.lespecular.Name = "lespecular";
+            this.lespecular.Size = new System.Drawing.Size(130, 35);
+            this.lespecular.TabIndex = 11;
+            this.lespecular.Text = "Especular";
+            this.lespecular.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lespecular.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.lespecular.UseVisualStyleBackColor = false;
+            this.lespecular.Click += new System.EventHandler(this.lespecular_Click);
+            // 
+            // lambiente
+            // 
+            this.lambiente.BackColor = System.Drawing.Color.Black;
+            this.lambiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lambiente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.lambiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lambiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lambiente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(151)))), ((int)(((byte)(230)))));
+            this.lambiente.Image = ((System.Drawing.Image)(resources.GetObject("lambiente.Image")));
+            this.lambiente.Location = new System.Drawing.Point(22, 106);
+            this.lambiente.Name = "lambiente";
+            this.lambiente.Size = new System.Drawing.Size(130, 35);
+            this.lambiente.TabIndex = 12;
+            this.lambiente.Text = "Ambiente";
+            this.lambiente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lambiente.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.lambiente.UseVisualStyleBackColor = false;
+            this.lambiente.Click += new System.EventHandler(this.lambiente_Click);
+            // 
             // TelaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,6 +413,9 @@
 		private System.Windows.Forms.ComboBox cbPreenchimento;
 		private System.Windows.Forms.CheckBox cbfaceo;
 		private System.Windows.Forms.ComboBox cbAxonometrica;
-	}
+        private System.Windows.Forms.Button lambiente;
+        private System.Windows.Forms.Button lespecular;
+        private System.Windows.Forms.Button ldifusa;
+    }
 }
 

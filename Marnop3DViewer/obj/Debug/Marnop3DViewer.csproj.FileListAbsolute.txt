@@ -36,3 +36,13 @@ C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Mar
 C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe.config
 C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe
 C:\Users\joao\Desktop\Unoeste\6º TERMO\2º BIMESTRE\COMP. GRÁFICA\CompGraf\Marnop3DViewer\bin\Debug\Marnop3DViewer.pdb
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe.config
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.exe
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\bin\Debug\Marnop3DViewer.pdb
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csprojAssemblyReference.cache
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.TelaPrincipal.resources
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.Properties.Resources.resources
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.GenerateResource.cache
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.csproj.CoreCompileInputs.cache
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.exe
+C:\Users\vicga\Source\Repos\MateusFS99\Marnop3DViewer\Marnop3DViewer\obj\Debug\Marnop3DViewer.pdb

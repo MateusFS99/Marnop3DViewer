@@ -15,10 +15,10 @@ namespace Marnop3DViewer
 	public partial class TelaPrincipal : Form
 	{
 		private int mousex, mousey;
-		private int x1, y1, x2, y2;
+		private int x1, y1, x2, y2, lx, ly;
 		private bool dragging, shift, ctrl;
 		private String fill;
-		private Color cor;
+		private Color cor, ambiente, difusa, especular;
 		private Object3D actobj;
 
 		public TelaPrincipal()
@@ -28,6 +28,11 @@ namespace Marnop3DViewer
 			ctrl = false;
 			fill = "Phong";
 			pbColor.BackColor = Color.Blue;
+			lx = 330;
+			ly = 10;
+			ambiente = Color.FromArgb(255,0,0,255);
+			difusa = Color.FromArgb(255,0, 128, 255);
+			especular = Color.FromArgb(255,255, 255, 255);
 			rbAramado.Checked = true;
 			this.pbPrincipal.MouseWheel += pbPrincipal_MouseWheel;
 			exibeTab("info");
@@ -61,7 +66,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				pbPrincipal.Image = Utils.drawObjectWire(actobj,b);
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b, new Vertex(0, 0, 1), ambiente, difusa,especular);
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -107,6 +112,8 @@ namespace Marnop3DViewer
 				dragging = true;
 				mousex = -e.X;
 				mousey = -e.Y;
+				lx = this.PointToClient(MousePosition).X;
+				ly = this.PointToClient(MousePosition).Y;
 				Cursor.Clip = this.RectangleToScreen(new Rectangle(clipleft, cliptop, clipwidth, clipheight));
 				pbLight.Invalidate();
 			}
@@ -162,7 +169,29 @@ namespace Marnop3DViewer
 			exibeTab("config");
 		}
 
-		private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
+        private void ldifusa_Click(object sender, EventArgs e)
+        {
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				difusa = pbColor.BackColor = colorPicker.Color;
+
+		}
+
+        private void lespecular_Click(object sender, EventArgs e)
+        {
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				especular = pbColor.BackColor = colorPicker.Color;
+		}
+
+        private void pbLight_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			fill = cbPreenchimento.Text;
 		}
@@ -172,7 +201,15 @@ namespace Marnop3DViewer
 
 		}
 
-		private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
+        private void lambiente_Click(object sender, EventArgs e)
+        {
+			ColorDialog colorPicker = new ColorDialog();
+
+			if (colorPicker.ShowDialog() == DialogResult.OK)
+				ambiente = pbColor.BackColor = colorPicker.Color;
+		}
+
+        private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (actobj != null)
 			{
@@ -231,9 +268,9 @@ namespace Marnop3DViewer
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.rotationX(dy);
 					actobj.rotationY(-dx);
-					actobj.setCavalierCabinet(1, 45);
+					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 0, 1), ambiente,difusa,especular);
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -245,9 +282,9 @@ namespace Marnop3DViewer
                 {
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
-					actobj.setCavalierCabinet(1, 45);
+					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0 , 0, 1), ambiente, difusa, especular);
 
 					x1 = x2;
 					y1 = y2;
@@ -286,9 +323,9 @@ namespace Marnop3DViewer
 					actobj.scale(1.2, 1.2, 1.2);
 			}
 				
-			actobj.setCavalierCabinet(1, 45);
+			actobj.setNewActuals();
 			actobj.setNFaces();
-			pbPrincipal.Image = Utils.drawObjectWire(actobj, b);
+			pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0,1,1),ambiente,difusa,especular);
 		}
 	}
 }

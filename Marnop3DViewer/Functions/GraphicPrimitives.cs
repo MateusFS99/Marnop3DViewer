@@ -151,19 +151,19 @@ namespace Marnop3DViewer
 				}
 		}
 
-		public static void drawLine(int x1, int x2, double y, BitmapData b)
+		public static void drawLine(int x1, int x2, double y, BitmapData b, Color c)
         {
 			x1 = limiterL(0,x1);
 			x2 = limiterH(660, x2);
 			int rowsize = (b.Width * 3);
 
 			byte* p = (byte*)b.Scan0.ToPointer() + 3 * x1 + rowsize * (int)y;
-			if (y < rowsize*b.Height - 1)
-				while(x1 <= x2)
+			if (y < b.Height - 1 && y > 0)
+				while(x1 < x2)
 				{
-					*(p++) = (byte)255;
-					*(p++) = (byte)0;
-					*(p++) = (byte)0;
+					*(p++) = (byte)c.B;
+					*(p++) = (byte)c.G;
+					*(p++) = (byte)c.R;
 					x1++;
 				}
         }
