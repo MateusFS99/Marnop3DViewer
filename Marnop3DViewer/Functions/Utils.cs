@@ -114,7 +114,12 @@ namespace Marnop3DViewer
 			n = Math.Sqrt(Math.Pow(l.getX(), 2) + Math.Pow(l.getX(), 2) + Math.Pow((l.getZ() + 1), 2));
 			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
 
-			List<Vertex> lv;
+
+			if (fill.Equals("Flat"))
+            {
+				flat()
+            }
+				List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
 			{
 				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
@@ -141,6 +146,28 @@ namespace Marnop3DViewer
 			b.UnlockBits(bdma);
 
 			return b;
+		}
+
+		private static void flat()
+        {
+			List<Vertex> lv;
+			foreach (Face f in obj.getFaces())
+			{
+				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
+				hn = Math.Pow((h.getX() * f.getNormal().getX() + h.getY() * f.getNormal().getY() + h.getZ() * f.getNormal().getZ()), 10);
+
+				r = (int)(255 * (0.1 * argb[0] + 0.4 * drgb[0] * ln + 0.3 * ergb[0] * hn));
+				g = (int)(255 * (0.1 * argb[1] + 0.4 * drgb[1] * ln + 0.3 * ergb[1] * hn));
+				bc = (int)(255 * (0.1 * argb[2] + 0.4 * drgb[2] * ln + 0.3 * ergb[2] * hn));
+
+				if (f.getNormal().getZ() > 0)
+				{
+					lv = new List<Vertex>();
+					for (int i = 0; i < f.getVertexs().Count; i++)
+						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
+					Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
+				}
+			}
 		}
 
 
