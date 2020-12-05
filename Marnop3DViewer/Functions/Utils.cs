@@ -120,7 +120,7 @@ namespace Marnop3DViewer
 					lv = new List<Vertex>();
 					for (int i = 0; i < f.getVertexs().Count; i++)						
 						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					Fill.flat(lv, Color.FromArgb(r, g, bc), bdma);
+					Fill.flat(lv, Color.FromArgb(limiter(0,255,r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
 				}
 			}
 
@@ -214,7 +214,7 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		private static int limiter(int limmin, int limmax, int number)
+		public static int limiter(int limmin, int limmax, int number)
         {
 			if (number > limmax)
 				number = limmax;
@@ -223,5 +223,19 @@ namespace Marnop3DViewer
 
 			return number;
         }
+
+		public static int limiterL(int lim, int n)
+		{
+			if (n < lim)
+				return lim;
+			return n;
+		}
+
+		public static int limiterH(int lim, int n)
+		{
+			if (n > lim)
+				return lim;
+			return n;
+		}
 	}
 }

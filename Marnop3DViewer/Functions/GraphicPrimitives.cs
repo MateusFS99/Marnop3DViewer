@@ -153,8 +153,8 @@ namespace Marnop3DViewer
 
 		public static void drawLine(int x1, int x2, double y, BitmapData b, Color c)
         {
-			x1 = limiterL(0,x1);
-			x2 = limiterH(660, x2);
+			x1 = Utils.limiterL(0,x1);
+			x2 = Utils.limiterH(660, x2);
 			int rowsize = (b.Width * 3);
 
 			byte* p = (byte*)b.Scan0.ToPointer() + 3 * x1 + rowsize * (int)y;
@@ -168,18 +168,6 @@ namespace Marnop3DViewer
 				}
         }
 
-		private static int limiterL(int lim, int n)
-        {
-			if (n < lim)
-				return lim;
-			return n;
-        }
-
-		private static int limiterH(int lim, int n)
-        {
-			if (n > lim)
-				return lim;
-			return n;
-        }
+		
 	}
 }

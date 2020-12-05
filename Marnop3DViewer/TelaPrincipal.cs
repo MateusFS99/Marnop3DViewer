@@ -66,7 +66,7 @@ namespace Marnop3DViewer
 				actobj = Utils.readObj(File.OpenText(openFileDialog.FileName));
 				pbPrincipal.Image = null;
 				rbAramado.Checked = true;
-				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b, new Vertex(0, 0, 1), ambiente, difusa,especular);
+				pbPrincipal.Image = Utils.drawObjectSolid(actobj,b, new Vertex(0, 1, 1), ambiente, difusa,especular);
 				this.Text = "Marnop3DViewer - " + openFileDialog.FileName;
 			}
 		}
@@ -270,7 +270,7 @@ namespace Marnop3DViewer
 					actobj.rotationY(-dx);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 0, 1), ambiente,difusa,especular);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0, 1, 1), ambiente,difusa,especular);
 					x1 = x2;
 					y1 = y2;
 				}	
@@ -284,7 +284,7 @@ namespace Marnop3DViewer
 					actobj.translation(dx, dy, 0);
 					actobj.setNewActuals();
 					actobj.setNFaces();
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0 , 0, 1), ambiente, difusa, especular);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(0 , 1, 1), ambiente, difusa, especular);
 
 					x1 = x2;
 					y1 = y2;
