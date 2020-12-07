@@ -32,10 +32,10 @@ namespace Marnop3DViewer
 
 			for (int i = 0; i < (int)(ymax - ymin + 1); i++)
 				et[i] = new List<NoScan>();
-			for (int i = 0; i < lv.Count - 1; i++)
+			for (int i = 1; i < lv.Count; i++)
 			{
-				p1 = lv[i];
-				p2 = lv[i + 1];
+				p1 = lv[i - 1];
+				p2 = lv[i];
 				
 					if (p1.getY() < p2.getY())
 					{
