@@ -20,6 +20,7 @@ namespace Marnop3DViewer
 		private String fill;
 		private Color ambiente, difusa, especular;
 		private Object3D actobj;
+		private double[,] zbuffer;
 
 		public TelaPrincipal()
 		{
@@ -82,13 +83,13 @@ namespace Marnop3DViewer
 			double lux, luy,xp = 1,yp = 1,vx = 336,vy = 240;
 			
 			lux = -xp*((lx1 - vx) / 400.0);
-			luy = -yp * ((ly1 - vy) / 500.0); 
+			luy = -yp * ((ly1 - vy) / 600.0); 
 			if (op == 'a')
 			{
 				if (rbAramado.Checked)
 					mudaAxonometrica(b);
 				else
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill, zbuffer);
 			}
 			else if (op == 'p')
 			{
@@ -103,7 +104,15 @@ namespace Marnop3DViewer
 				if (rbAramado.Checked)
 					pbPrincipal.Image = Utils.drawObjectWire(actobj, b,cbfaceo.Checked);
 				else
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
+                {
+					zbuffer = new double[660,500];
+                    for (int i = 0; i < 660; i++)
+                        for (int j = 0; j < 500; j++)
+							zbuffer[i, j] = -1000;
+
+					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill, zbuffer);
+				}
+					
 			}
 		}
 

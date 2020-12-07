@@ -92,12 +92,11 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,string fill)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,string fill, double [,]zbuffer)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
-			int r, g, bc;
 
 			double[] argb = new double[] { a.R / 255.0, a.G * 0.9 / 255, a.B * 0.9 / 255 };
 			double[] drgb = new double[] { d.R * 0.5 / 255, d.G * 0.7 / 255, d.B * 0.5 / 255 };
@@ -115,41 +114,20 @@ namespace Marnop3DViewer
 			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
 
 
-			//if (fill.Equals("Flat"))
-            {
-			//	flat()
-            }
-				List<Vertex> lv;
-			foreach (Face f in obj.getFaces())
-			{
-				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
-				hn = Math.Pow((h.getX() * f.getNormal().getX() + h.getY() * f.getNormal().getY() + h.getZ() * f.getNormal().getZ()), 10);
+			if (fill.Equals("Flat"))
+				flat(obj,l,argb,drgb,ergb,h,bdma);
+			//else if((fill.Equals("Flat")))
 
-				r = (int)(255* (0.1 * argb[0] + 0.5 * drgb[0] * ln + 0.5 * ergb[0] * hn));
-				g = (int)(255 * (0.1 * argb[1] + 0.5 * drgb[1] * ln + 0.5 * ergb[1] * hn));
-				bc = (int)(255 * (0.1 * argb[2] + 0.5 * drgb[2] * ln + 0.5 * ergb[2] * hn));
-
-				if (f.getNormal().getZ() > 0)
-				{
-					lv = new List<Vertex>();
-					for (int i = 0; i < f.getVertexs().Count; i++)
-						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					if (fill.Equals("Flat"))
-						Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
-					else if (fill.Equals("Gourard"))
-						Fill.gourard(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
-					else if (fill.Equals("Phong"))
-						Fill.phong(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
-				}
-			}
-
+			
 			b.UnlockBits(bdma);
 
 			return b;
 		}
 
-		/*private static void flat()
+		private static void flat(Object3D obj, Vertex l, double[]argb, double[] drgb, double[] ergb, Vertex h, BitmapData bdma)
         {
+			double ln, hn;
+			int r, g, bc;
 			List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
 			{
@@ -168,7 +146,7 @@ namespace Marnop3DViewer
 					Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
 				}
 			}
-		}*/
+		}
 
 
 		public static Bitmap drawObjectZY(Object3D obj, Bitmap b)
