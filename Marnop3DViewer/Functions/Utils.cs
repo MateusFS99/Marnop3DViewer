@@ -115,9 +115,9 @@ namespace Marnop3DViewer
 			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
 
 
-			if (fill.Equals("Flat"))
+			//if (fill.Equals("Flat"))
             {
-				flat()
+			//	flat()
             }
 				List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
@@ -125,9 +125,9 @@ namespace Marnop3DViewer
 				ln = l.getX() * f.getNormal().getX() + l.getY() * f.getNormal().getY() + l.getZ() * f.getNormal().getZ();
 				hn = Math.Pow((h.getX() * f.getNormal().getX() + h.getY() * f.getNormal().getY() + h.getZ() * f.getNormal().getZ()), 10);
 
-				r = (int)(255* (0.1 * argb[0] + 0.4 * drgb[0] * ln + 0.3 * ergb[0] * hn));
-				g = (int)(255 * (0.1 * argb[1] + 0.4 * drgb[1] * ln + 0.3 * ergb[1] * hn));
-				bc = (int)(255 * (0.1 * argb[2] + 0.4 * drgb[2] * ln + 0.3 * ergb[2] * hn));
+				r = (int)(255* (0.1 * argb[0] + 0.5 * drgb[0] * ln + 0.5 * ergb[0] * hn));
+				g = (int)(255 * (0.1 * argb[1] + 0.5 * drgb[1] * ln + 0.5 * ergb[1] * hn));
+				bc = (int)(255 * (0.1 * argb[2] + 0.5 * drgb[2] * ln + 0.5 * ergb[2] * hn));
 
 				if (f.getNormal().getZ() > 0)
 				{
@@ -148,7 +148,7 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		private static void flat()
+		/*private static void flat()
         {
 			List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
@@ -168,7 +168,7 @@ namespace Marnop3DViewer
 					Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
 				}
 			}
-		}
+		}*/
 
 
 		public static Bitmap drawObjectZY(Object3D obj, Bitmap b)
