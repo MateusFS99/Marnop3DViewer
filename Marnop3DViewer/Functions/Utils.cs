@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Marnop3DViewer
 {
@@ -73,26 +74,31 @@ namespace Marnop3DViewer
 
 		public static Bitmap drawObjectWire(Object3D obj, Bitmap b, bool face)
 		{
-			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
+			if (obj != null)
+			{
+				BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
-			foreach (Face f in obj.getFaces())
-			{
-				if (!face)
-                {
-					if (f.getNormal().getZ() > 0)
+				foreach (Face f in obj.getFaces())
+				{
+					if (!face)
+					{
+						if (f.getNormal().getZ() > 0)
+							desenha(obj, f, bdma);
+					}
+					else
 						desenha(obj, f, bdma);
 				}
-				else
-					desenha(obj, f, bdma);
-			}
 
-			b.UnlockBits(bdma);
+				b.UnlockBits(bdma);
+			}
+			else
+				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
 
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,string fill)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e, int fill)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -115,10 +121,10 @@ namespace Marnop3DViewer
 			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
 
 
-			//if (fill.Equals("Flat"))
+			/*if (fill == 1)
             {
-			//	flat()
-            }
+				flat();
+            }*/
 				List<Vertex> lv;
 			foreach (Face f in obj.getFaces())
 			{
@@ -134,11 +140,11 @@ namespace Marnop3DViewer
 					lv = new List<Vertex>();
 					for (int i = 0; i < f.getVertexs().Count; i++)
 						lv.Add(new Vertex(330 + obj.getActuals()[f.getVertexs()[i]].getX(), 250 + obj.getActuals()[f.getVertexs()[i]].getY(), obj.getActuals()[f.getVertexs()[i]].getZ()));
-					if (fill.Equals("Flat"))
+					if (fill == 1)
 						Fill.flat(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
-					else if (fill.Equals("Gourard"))
+					else if (fill == 2)
 						Fill.gourard(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
-					else if (fill.Equals("Phong"))
+					else if (fill == 3)
 						Fill.phong(lv, Color.FromArgb(limiter(0, 255, r), limiter(0, 255, g), limiter(0, 255, bc)), bdma);
 				}
 			}

@@ -14,10 +14,8 @@ namespace Marnop3DViewer
 {
 	public partial class TelaPrincipal : Form
 	{
-		private int mousex, mousey;
-		private int x1, y1, x2, y2, lx1, ly1,lx2, ly2;
+		private int mousex, mousey, x1, y1, x2, y2, lx1, ly1, lx2, ly2, fill;
 		private bool dragging, shift, ctrl;
-		private String fill;
 		private Color ambiente, difusa, especular;
 		private Object3D actobj;
 
@@ -26,7 +24,7 @@ namespace Marnop3DViewer
 			InitializeComponent();
 			shift = false;
 			ctrl = false;
-			fill = "Flat";
+			fill = 1;
 			pbAmbiente.BackColor = Color.FromArgb(255, 0, 0, 255);
 			pbDifusa.BackColor = Color.FromArgb(255, 0, 128, 255);
 			pbEspecular.BackColor = Color.FromArgb(255, 255, 255, 255);
@@ -71,6 +69,9 @@ namespace Marnop3DViewer
 			cbProjecoes.Visible = tab.Equals("config");
 			lbDist.Visible = tab.Equals("config");
 			tbDistancia.Visible = tab.Equals("config");
+			label11.Visible = tab.Equals("config");
+			label12.Visible = tab.Equals("config");
+			label13.Visible = tab.Equals("config");
 
 			btInfo.FlatAppearance.BorderColor = info;
 			btConfig.FlatAppearance.BorderColor = config;
@@ -78,40 +79,48 @@ namespace Marnop3DViewer
 
 		private void desenhaObjeto(char op)
 		{
-			Bitmap b = new Bitmap(pbPrincipal.Width,pbPrincipal.Height);
-			double lux, luy,xp = 1,yp = 1,vx = 336,vy = 240;
-			
-			lux = -xp*((lx1 - vx) / 400.0);
-			luy = -yp * ((ly1 - vy) / 500.0); 
-			if (op == 'a')
+			if (actobj != null)
 			{
+				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
+				double lux, luy, xp = 1, yp = 1, vx = 336, vy = 240;
+
+				lux = -xp * ((lx1 - vx) / 400.0);
+				luy = -yp * ((ly1 - vy) / 500.0);
+				if (op == 'a')
+				{
+					if (rbAramado.Checked)
+						mudaAxonometrica(b);
+					else
+						pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
+				}
+				else if (op == 'p')
+				{
+					if (cbProjecoes.SelectedIndex == 1)
+						actobj.setCavalierCabinet(1, 45);
+					else if (cbProjecoes.SelectedIndex == 2)
+						actobj.setCavalierCabinet(0.5, 45);
+					else if (cbProjecoes.SelectedIndex == 3)
+					{
+						if (tbDistancia.Text != "")
+							actobj.setNewActualsP(Convert.ToInt32(tbDistancia.Text));
+						else
+							MessageBox.Show("Distância não definida!", "Erro!", MessageBoxButtons.OK);
+					}
+				}
 				if (rbAramado.Checked)
-					mudaAxonometrica(b);
+					pbPrincipal.Image = Utils.drawObjectWire(actobj, b, cbfaceo.Checked);
 				else
 					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
 			}
-			else if (op == 'p')
-			{
-				if (cbProjecoes.Text.Equals("Cabinet"))
-					actobj.setCavalierCabinet(0.5, 45);
-				else if (cbProjecoes.Text.Equals("Cavalier"))
-					actobj.setCavalierCabinet(1, 45);
-				else if (tbDistancia.Text != "")
-					actobj.setNewActualsP(Convert.ToInt32(tbDistancia.Text));
-				else
-					MessageBox.Show("Distância não definida!", "Erro!", MessageBoxButtons.OK);
-				if (rbAramado.Checked)
-					pbPrincipal.Image = Utils.drawObjectWire(actobj, b,cbfaceo.Checked);
-				else
-					pbPrincipal.Image = Utils.drawObjectSolid(actobj, b, new Vertex(lux, luy, 1), ambiente, difusa, especular, fill);
-			}
+			else
+				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
 		}
 
 		private void mudaAxonometrica(Bitmap b)
 		{
-			if (cbAxonometrica.Text.Equals("Z,Y"))
+			if (cbAxonometrica.SelectedIndex == 2)
 				pbPrincipal.Image = Utils.drawObjectZY(actobj, b);
-			else if (cbAxonometrica.Text.Equals("X,Z"))
+			else if (cbAxonometrica.SelectedIndex == 3)
 				pbPrincipal.Image = Utils.drawObjectXZ(actobj, b);
 			else
 				pbPrincipal.Image = Utils.drawObjectWire(actobj, b, cbfaceo.Checked);
@@ -199,7 +208,6 @@ namespace Marnop3DViewer
 		{
 			if (dragging)
 			{
-				
 				dragging = false;
 				Cursor.Clip = System.Drawing.Rectangle.Empty;
 				pbLight.Invalidate();
@@ -208,7 +216,10 @@ namespace Marnop3DViewer
 
 		private void rbSolido_CheckedChanged(object sender, EventArgs e)
 		{
-			desenhaObjeto('a');
+			if (actobj != null)
+				desenhaObjeto('a');
+			else
+				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
 		}
 
 		private void btInfo_Click(object sender, EventArgs e)
@@ -257,7 +268,7 @@ namespace Marnop3DViewer
 
 		private void cbPreenchimento_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			fill = cbPreenchimento.Text;
+			fill = cbPreenchimento.SelectedIndex;
 		}
 
         private void lambiente_Click(object sender, EventArgs e)
@@ -287,11 +298,7 @@ namespace Marnop3DViewer
 		private void cbIsometrica_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (actobj != null)
-			{
-				Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
-
 				desenhaObjeto('a');
-			}
 			else
 				MessageBox.Show("Nenhum Objeto aberto!", "Erro!", MessageBoxButtons.OK);
 		}
@@ -339,7 +346,7 @@ namespace Marnop3DViewer
 					actobj.rotationX(dy);
 					actobj.rotationY(-dx);
 					actobj.setNFaces();
-					if (tbDistancia.Text == "")
+					if (cbProjecoes.SelectedIndex <= 0)
 					{
 						actobj.setNewActuals();
 						desenhaObjeto('a');
@@ -359,7 +366,7 @@ namespace Marnop3DViewer
 					Bitmap b = new Bitmap(pbPrincipal.Width, pbPrincipal.Height);
 					actobj.translation(dx, dy, 0);
 					actobj.setNFaces();
-					if (tbDistancia.Text == "")
+					if (cbProjecoes.SelectedIndex <= 0)
 					{
 						actobj.setNewActuals();
 						desenhaObjeto('a');
@@ -405,7 +412,7 @@ namespace Marnop3DViewer
 			}
 			
 			actobj.setNFaces();
-			if(tbDistancia.Text == "")
+			if(cbProjecoes.SelectedIndex <= 0)
 			{
 				actobj.setNewActuals();
 				desenhaObjeto('a');
