@@ -132,7 +132,7 @@ namespace Marnop3DViewer
                 z = Convert.ToDouble(ma[2, 0] * p.getX() + ma[2, 1] * p.getY() + ma[2, 2] * p.getZ() + ma[2, 3]);
                 actuals.Add(new Vertex((x * d)/(z + d),
                     (y * d)/(z + d),
-                    0));
+                    z));
             }
         }
 

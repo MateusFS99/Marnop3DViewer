@@ -27,9 +27,9 @@ namespace Marnop3DViewer
 			shift = false;
 			ctrl = false;
 			fill = "Flat";
-			pbAmbiente.BackColor = Color.Blue;
-			pbDifusa.BackColor = Color.Blue;
-			pbEspecular.BackColor = Color.Blue;
+			pbAmbiente.BackColor = Color.FromArgb(255, 0, 0, 255);
+			pbDifusa.BackColor = Color.FromArgb(255, 0, 128, 255);
+			pbEspecular.BackColor = Color.FromArgb(255, 255, 255, 255);
 			lx1 = 700;
 			ly1 = 100;
 			ambiente = Color.FromArgb(255,0,0,255);
@@ -179,7 +179,6 @@ namespace Marnop3DViewer
 				Point MPosition = new Point();
 				if(rbSolido.Checked)
                 {
-					int lux, luy;
 					lx2 = this.PointToClient(MousePosition).X;
 					ly2 = this.PointToClient(MousePosition).Y;
 					if (Math.Abs(lx2 - lx1) > 20 || Math.Abs(ly2 - ly1) > 20)
