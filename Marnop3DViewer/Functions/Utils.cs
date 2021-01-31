@@ -92,7 +92,7 @@ namespace Marnop3DViewer
 			return b;
 		}
 
-		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,string fill, double [,]zbuffer)
+		public static Bitmap drawObjectSolid(Object3D obj, Bitmap b, Vertex l, Color a, Color d, Color e,int fill, double [,]zbuffer)
 		{
 			BitmapData bdma = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
 				ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -114,7 +114,7 @@ namespace Marnop3DViewer
 			h = new Vertex((l.getX())/n, (l.getY())/n, (l.getZ() + 1) / n);
 
 
-			if (fill.Equals("Flat"))
+			if (fill == 1)
 				flat(obj,l,argb,drgb,ergb,h,bdma);
 			//else if((fill.Equals("Flat")))
 
