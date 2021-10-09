@@ -1,2 +1,0 @@
-# Marnop3DViewer
- 
